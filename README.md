@@ -2,6 +2,12 @@
 
 Paper-to-World turns a research paper into an interactive lesson: a short explanation on the left, a live 2D or 3D simulation of the paper's model on the right. Each pipeline stage has contract or evidence checks; publication requires passing planned numerical targets, parity and browser checks. Quotes must appear in the text. The browser simulation must match a Python reference number for number. The world is opened in a headless browser before anyone sees it. Source claims and illustrative teaching assumptions are distinguished. These checks do not prove scientific fidelity.
 
+## Demo video
+
+[![Watch the Paper-to-World demo on YouTube](https://img.youtube.com/vi/5f4iIQOL7NY/hqdefault.jpg)](https://youtu.be/5f4iIQOL7NY)
+
+[Watch the demo on YouTube](https://youtu.be/5f4iIQOL7NY).
+
 ## Contents
 
 - [Demo preview](#demo-preview)
