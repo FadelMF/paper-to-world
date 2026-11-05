@@ -4,9 +4,9 @@ Paper-to-World turns a research paper into an interactive lesson: a short explan
 
 ## Demo video
 
-[![Watch the Paper-to-World demo on YouTube](docs/images/thumbnail.jpeg)](https://youtu.be/5f4iIQOL7NY)
+[![Watch the Paper-to-World demo on YouTube](docs/images/thumbnail.jpeg)](https://youtu.be/aWvklialpLA)
 
-[Watch the demo on YouTube](https://youtu.be/5f4iIQOL7NY).
+[Watch the demo on YouTube](https://youtu.be/aWvklialpLA).
 
 ## Contents
 
