@@ -4,6 +4,7 @@ Paper-to-World turns a research paper into an interactive lesson: a short explan
 
 ## Contents
 
+- [Demo preview](#demo-preview)
 - [Requirements](#requirements)
 - [Quick start](#quick-start)
 - [Configuration](#configuration)
@@ -15,6 +16,26 @@ Paper-to-World turns a research paper into an interactive lesson: a short explan
 - [Documentation](#documentation)
 - [Status and limitations](#status-and-limitations)
 - [Credits](#credits)
+
+## Demo preview
+
+Actual screenshots of the app running locally. The prepared examples work without an API key; building a lesson from your own paper requires a configured model.
+
+![Start page with four prepared examples and an interactive neuron preview](docs/images/home.png)
+
+**Transformer in 2D.** Follow the encoder-to-decoder path from *Attention Is All You Need*. Change the source sentence or embedding strength and inspect the intermediate values in a small untrained model.
+
+![Transformer lesson with guided explanations, parameter controls, and an encoder-decoder diagram](docs/images/transformer.png)
+
+**Neuron in 3D.** Rotate the neuron, inspect its anatomy, and change the input current to explore voltage and spiking. This example uses authored teaching notes.
+
+![Neuron lesson with a rotatable 3D model, anatomy labels, and an input-current slider](docs/images/neuron-3d.png)
+
+For a short hackathon walkthrough:
+
+1. Start the app using [Quick start](#quick-start), then choose **Explore examples → Transformer · 2D → Open this example**.
+2. Change the source sentence, inspect a component, and move through the six guided lessons. Open **Neuron · 3D** to demonstrate rotation, anatomy, and the input-current control.
+3. With your model configured, choose **Use your paper**, upload a PDF or enter an arXiv ID, and follow the build progress into the resulting lesson.
 
 ## Requirements
 
