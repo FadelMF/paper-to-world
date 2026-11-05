@@ -1,0 +1,12 @@
+{
+  "subject": "A single model neuron: input current, a leaky membrane, a firing threshold and an output axon.",
+  "figures": [],
+  "entities": [
+    {"id": "membrane", "name": "Membrane", "kind": "structure", "appearance": "The boundary of the cell that holds the voltage difference.", "dimensions": null, "relations": ["receives the input current", "leaks back toward rest"], "page": 1, "quote": "Membrane: The boundary that holds the voltage difference."},
+    {"id": "input", "name": "Input current", "kind": "signal", "appearance": "An external drive flowing into the neuron.", "dimensions": "measured in nanoamps", "relations": ["drives the membrane voltage"], "page": 1, "quote": "Input current: The external drive into our model neuron, measured in nanoamps."},
+    {"id": "axon", "name": "Axon", "kind": "structure", "appearance": "An output path leading away from the cell body.", "dimensions": null, "relations": ["leaves the cell body"], "page": 1, "quote": "Axon: The output path that carries the neuron’s signal away from its cell body."},
+    {"id": "leak", "name": "Leak", "kind": "process", "appearance": "A pull of the voltage back toward rest.", "dimensions": null, "relations": ["opposes the input"], "page": 2, "quote": "Leak: The tendency for the membrane voltage to move back toward rest."},
+    {"id": "threshold", "name": "Threshold", "kind": "quantity", "appearance": "A voltage level at which a spike is emitted.", "dimensions": "-50 mV", "relations": ["compared with the membrane voltage"], "page": 3, "quote": "Threshold: The voltage at which the model emits a spike: -50 mV."},
+    {"id": "spike", "name": "Spike", "kind": "signal", "appearance": "A sharp line in the voltage trace.", "dimensions": "+20 mV marker", "relations": ["leaves along the axon"], "page": 3, "quote": "Spike: A discrete output event, drawn as a sharp line in the trace."}
+  ]
+}

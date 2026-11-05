@@ -1,0 +1,79 @@
+/* Everything a world module draws inside #world. Used by the Lesson view and the Home preview alike. */
+#world{position:relative;isolation:isolate;min-height:0;width:100%;flex:1;overflow:hidden;container:world/inline-size}
+#world>canvas{position:absolute;inset:0;display:block;width:100%;height:100%}
+
+/* Top row: hint on the left, the segmented control on the right. A narrow world moves the hint below the control. */
+.scene-hint{position:absolute;left:8px;top:8px;max-width:calc(100% - 220px);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;line-height:28px;font-size:11px;color:var(--muted);z-index:3;pointer-events:none}
+@container world (max-width:520px){.scene-hint{top:38px;left:auto;right:8px;max-width:calc(100% - 16px);line-height:18px}}
+.specimen-controls{position:absolute;top:8px;right:8px;display:flex;height:28px;padding:2px;gap:2px;z-index:7;background:var(--paper);border:1px solid var(--line);border-radius:7px}
+.specimen-controls button{height:22px;padding:0 9px;background:transparent;color:var(--ink);border:0;border-radius:5px;font:500 12px/22px Inter,sans-serif;cursor:pointer}
+.specimen-controls button:hover{color:var(--accent-text)}
+.specimen-controls button[aria-pressed=true],.specimen-controls button[aria-expanded=true]{background:var(--wash);color:var(--accent-text)}
+.specimen-controls button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+
+/* Compact one-line tags with a thin leader line to their anchor. */
+.object-tag{position:absolute;display:inline-flex;align-items:baseline;gap:5px;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:2px 7px;white-space:nowrap;transform:translate(-50%,-50%);font-size:11px;line-height:18px;z-index:4;transition:opacity .3s,border-color .18s}
+.object-tag .tag-name{font-weight:550}
+.object-tag .tag-value{color:var(--muted);font-variant-numeric:tabular-nums}
+.object-tag:hover{border-color:var(--accent);color:var(--accent-text)}
+.object-tag.selected{border-color:var(--accent);background:var(--wash);color:var(--accent-text)}
+.object-tag.peek{border-style:dashed}
+.part-caption{position:absolute;transform:translate(-50%,-50%);font-size:11px;line-height:16px;padding:1px 6px;color:var(--muted);background:var(--paper);border:1px dashed var(--line);border-radius:6px;white-space:nowrap;z-index:3;pointer-events:none}
+.plot-area{position:absolute;pointer-events:none}
+.tag-leader{position:absolute;height:1px;background:var(--muted);opacity:.55;transform-origin:0 50%;pointer-events:none;z-index:2}
+
+/* Membrane plot strip below the 3D scene; it never overlaps the model. */
+.voltage-inset{position:absolute;left:0;right:0;bottom:0;height:92px;z-index:2;pointer-events:none;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:5px 8px 4px}
+.voltage-inset p{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:var(--muted);margin:0 0 2px}
+.voltage-inset p b{font-weight:550;color:var(--ink);font-variant-numeric:tabular-nums}
+#world .voltage-inset canvas{width:100%;height:66px;display:block}
+
+.world-tools{position:absolute;right:8px;bottom:8px;display:flex;gap:4px;z-index:6}
+.world-3d.has-plot .world-tools{bottom:100px}
+.world-tools button{display:grid;place-items:center;padding:0;width:30px;height:30px;border:1px solid var(--line);border-radius:7px;background:var(--paper);color:var(--ink);font-size:15px}
+.world-tools button:hover{color:var(--accent-text);border-color:var(--accent)}
+.world-3d{touch-action:pan-y}
+
+.specimen-shell{display:flex;flex:1 0 300px;min-height:0;min-width:0;position:relative;width:100%;container:specimen/inline-size}
+.specimen-stage{display:grid;flex:1;min-width:0;min-height:0;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
+.specimen-stage.is-inspecting{grid-template-rows:minmax(160px,1fr) minmax(0,min(240px,48%));gap:12px}
+.specimen-stage.is-inspecting #world{min-height:0!important;min-width:0;height:100%!important;grid-column:1;grid-row:1}
+.specimen-shell.is-inspecting + .neuron-explanation{display:none}
+.anatomy-inspector{position:relative;grid-column:1;grid-row:2;z-index:9;display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden;margin:0;padding:12px;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:8px;font-size:12px;line-height:1.5}
+.anatomy-content{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding-right:4px}
+@container specimen (min-width:720px){.specimen-stage.is-inspecting{grid-template-columns:minmax(0,1fr) 280px;grid-template-rows:minmax(0,1fr)}.anatomy-inspector{grid-column:2;grid-row:1}}
+@media(max-width:760px){.specimen-shell{flex:none;min-height:0}.specimen-shell.is-inspecting{height:clamp(400px,calc(100dvh - var(--header-height,64px) - var(--dock-height,124px) - 100px),520px)}}
+.anatomy-inspector[hidden]{display:none}
+#world.world-2d.is-exploded.compact-diagram{overflow:auto;overscroll-behavior:contain}
+.world-2d.is-exploded.compact-diagram::before{content:'';display:block;height:480px;width:1px}
+.anatomy-inspector label{display:block;flex:none;font-weight:600}
+.anatomy-inspector select{display:block;width:100%;min-height:40px;margin-top:6px;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:8px;font:inherit}
+.anatomy-inspector p{margin:10px 0}
+.anatomy-inspector .anatomy-note{font-size:11px;color:var(--muted)}
+.anatomy-inspector a{color:var(--accent-text);font-size:11px}
+.anatomy-actions button{min-height:36px;padding:6px 10px;border:1px solid var(--line);border-radius:4px;background:var(--paper);color:var(--ink);font:inherit;cursor:pointer}
+.anatomy-actions button:first-child{background:var(--wash);color:var(--accent-text)}
+.anatomy-inspector :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+@media(max-width:540px){
+.object-tag{font-size:10px;padding:1px 5px}
+.scene-hint{font-size:10px}
+.specimen-controls button{padding:0 6px;font-size:11px}
+.voltage-inset{height:76px}
+#world .voltage-inset canvas{height:50px}
+.world-3d.has-plot .world-tools{bottom:84px}
+.world-tools button{width:28px;height:28px;font-size:14px}
+}
+@media(max-width:760px){body:not(.exploring) #workspace{grid-template-rows:minmax(290px,50%) minmax(0,1fr)}}
+@media(prefers-reduced-motion:reduce){.object-tag{transition:none}}
+
+.anatomy-reference{margin-top:12px;padding-top:8px;border-top:1px solid var(--line);font-size:11px}.anatomy-reference summary{cursor:pointer;color:var(--accent-text);line-height:1.6}.anatomy-reference summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}.anatomy-reference[open] summary{margin-bottom:8px}
+
+.anatomy-inspector label{font-size:12px}.anatomy-description{font-size:12px;line-height:1.7}.anatomy-field-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:22px}.anatomy-value{max-width:70%;padding:3px 6px;background:var(--wash);color:var(--accent-text);border-radius:5px;font-size:10px;font-weight:500;line-height:1.5;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.anatomy-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}.anatomy-actions button{min-height:44px;padding:8px;font:500 11px/1.4 Inter,sans-serif;border-radius:7px}
+
+.anatomy-actions{flex:none;margin-top:10px;background:var(--paper);padding:10px 0 0;border-top:1px solid var(--line)}
+
+#workspace .anatomy-inspector button{scroll-margin-block-end:0}
+
+#world:has(>.isolated-world){display:flex;flex:1;min-height:300px}.isolated-world{width:100%;height:100%;min-height:300px;flex:1;border:0;border-radius:10px}

@@ -1,0 +1,66 @@
+[project]
+name = "paper-to-world"
+version = "0.1.0"
+description = "Turn a research paper into an interactive 2D/3D lesson, checked against the paper at every stage."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn>=0.30",
+    "python-multipart>=0.0.9",
+    "python-dotenv>=1.0",
+    "openai>=2.0",
+    "pydantic>=2.7",
+    "pypdf>=6.21.4",
+    "pypdfium2>=4.30",
+    "pillow>=10.4",
+    "numpy>=2.0",
+    "scipy>=1.13",
+    "playwright>=1.47",
+]
+
+[dependency-groups]
+dev = ["httpx>=0.28", "ruff>=0.14", "pyright>=1.1", "pip-audit>=2.9"]
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["app", "static"]
+
+[tool.setuptools.package-data]
+static = ["**/*"]
+
+[tool.setuptools.exclude-package-data]
+"*" = ["**/__pycache__/*", "**/*.pyc"]
+
+[tool.ruff]
+line-length = 160
+target-version = "py312"
+extend-exclude = ["static", "data", "runs"]
+
+[tool.ruff.format]
+quote-style = "preserve"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF"]
+ignore = [
+    "E501",    # long lines are kept where they read better than wrapped ones (prompts, test tables)
+    "E731",    # small named lambdas are used for local helpers
+    "SIM108",  # a ternary is not always clearer
+    "RUF001", "RUF002", "RUF003",  # typographic quotes and dashes appear in learner-facing text on purpose
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E402", "E701", "E702", "E741", "B023", "SIM117"]   # browser scripts put the project on sys.path first
+"scripts/*" = ["E402"]                                            # scripts put the project on sys.path first
+
+[tool.pyright]
+include = ["app", "scripts", "tests"]
+# Browser scripts drive Playwright, whose layout getters are Optional; they fail loudly at run time instead.
+exclude = ["tests/browser_*.py"]
+pythonVersion = "3.12"
+typeCheckingMode = "standard"
+venvPath = "."
+venv = ".venv"

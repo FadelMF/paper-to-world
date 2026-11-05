@@ -1,0 +1,241 @@
+{
+  "modality": "2d",
+  "rationale": "A connected architecture overview with progressively focused numerical inspections.",
+  "core_model": "one complete small untrained encoder-decoder Transformer and autoregressive generation",
+  "coverage": [
+    {
+      "topic": "architecture",
+      "mode": "simulated",
+      "lessons": [
+        "architecture"
+      ]
+    },
+    {
+      "topic": "positions",
+      "mode": "simulated",
+      "lessons": [
+        "positions"
+      ]
+    },
+    {
+      "topic": "attention",
+      "mode": "simulated",
+      "lessons": [
+        "encoder"
+      ]
+    },
+    {
+      "topic": "residual",
+      "mode": "simulated",
+      "lessons": [
+        "encoder"
+      ]
+    },
+    {
+      "topic": "decoder",
+      "mode": "simulated",
+      "lessons": [
+        "decoder"
+      ]
+    },
+    {
+      "topic": "generation",
+      "mode": "simulated",
+      "lessons": [
+        "generation"
+      ]
+    },
+    {
+      "topic": "training",
+      "mode": "explained",
+      "lessons": [
+        "evidence"
+      ]
+    },
+    {
+      "topic": "results",
+      "mode": "explained",
+      "lessons": [
+        "evidence"
+      ]
+    },
+    {
+      "topic": "complexity",
+      "mode": "explained",
+      "lessons": [
+        "evidence"
+      ]
+    }
+  ],
+  "simplifications": [
+    "One layer per stack instead of six; d_model=4, h=2, d_ff=8 instead of the base 512/8/2048.",
+    "Fixed deterministic untrained weights. Output tokens are not a translation.",
+    "Training, dropout and label smoothing are explained, not performed. BLEU, parsing and ablation results are sourced, not reproduced.",
+    "Gain controls are illustrative interventions: 100% preserves the baseline equations; changing them is an experiment, not a paper-reported hyperparameter sweep."
+  ],
+  "controls": [
+    {
+      "symbol": "input_gain",
+      "label": "Embedding strength",
+      "min": 10,
+      "max": 300,
+      "step": 5,
+      "default": 100,
+      "units": "%"
+    },
+    {
+      "symbol": "position_gain",
+      "label": "Position signal strength",
+      "min": 0,
+      "max": 300,
+      "step": 5,
+      "default": 100,
+      "units": "%"
+    },
+    {
+      "symbol": "score_gain",
+      "label": "Attention sharpness",
+      "min": 10,
+      "max": 400,
+      "step": 5,
+      "default": 100,
+      "units": "%"
+    },
+    {
+      "symbol": "memory_gain",
+      "label": "Encoder memory contribution",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "default": 100,
+      "units": "%"
+    },
+    {
+      "symbol": "prefix",
+      "label": "Tokens to generate",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 3,
+      "units": "tokens"
+    },
+    {
+      "symbol": "training_step",
+      "label": "Training schedule step",
+      "min": 1,
+      "max": 32000,
+      "step": 1,
+      "default": 4000,
+      "units": "step"
+    },
+    {
+      "symbol": "source",
+      "label": "Source sentence",
+      "min": 0,
+      "max": 1,
+      "step": 1,
+      "default": 0,
+      "units": "0: I see cats · 1: I like cats"
+    },
+    {
+      "symbol": "position",
+      "label": "Positional encoding",
+      "min": 0,
+      "max": 1,
+      "step": 1,
+      "default": 1,
+      "units": "0 off · 1 on"
+    },
+    {
+      "symbol": "memory",
+      "label": "Encoder memory connection",
+      "min": 0,
+      "max": 1,
+      "step": 1,
+      "default": 1,
+      "units": "0 cut · 1 connected"
+    },
+    {
+      "symbol": "causal",
+      "label": "Prevent attention to future tokens",
+      "min": 0,
+      "max": 1,
+      "step": 1,
+      "default": 1,
+      "units": "0 off · 1 on"
+    },
+    {
+      "symbol": "stage",
+      "label": "Lesson stage",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "default": 0,
+      "units": ""
+    },
+    {
+      "symbol": "head",
+      "label": "Inspect attention head",
+      "min": 0,
+      "max": 1,
+      "step": 1,
+      "default": 0,
+      "units": "index"
+    }
+  ],
+  "views": [
+    {
+      "type": "2d",
+      "shows": "Encoder and decoder towers joined by cross-attention, with per-lesson computations"
+    }
+  ],
+  "guided_steps": [
+    {
+      "title": "Two stacks. One path from input to output.",
+      "do": "Change the source sentence from “I see cats” to “I like cats”.",
+      "notice": "The source token changes, encoder memory changes, and the decoder receives a different memory."
+    },
+    {
+      "title": "Words need positions before attention.",
+      "do": "Switch positional encoding off and compare token 0’s vector.",
+      "notice": "The cosine contribution disappears from the odd components; the input to the encoder changes."
+    },
+    {
+      "title": "Inside one encoder layer.",
+      "do": "Inspect head 1, then compare the two head outputs, concatenation and encoder output.",
+      "notice": "The heads produce different vectors. Concatenation has four components; the feed-forward and normalization steps change them again."
+    },
+    {
+      "title": "The decoder has two kinds of attention.",
+      "do": "Enable the causal mask; then cut the encoder memory connection.",
+      "notice": "Future attention mass becomes exactly zero. Cutting memory makes the cross-attention output zero, while the decoder still has its prefix."
+    },
+    {
+      "title": "Predict a token. Feed it back. Repeat.",
+      "do": "Increase “Tokens to generate” from one to three.",
+      "notice": "The generated sequence grows, the shifted prefix includes earlier generated tokens, and the probability distribution is recomputed."
+    },
+    {
+      "title": "What was trained—and what this demo proves.",
+      "do": "Move the schedule from step 4,000 to step 8,000.",
+      "notice": "The learning rate falls after warmup. The reported BLEU scores stay in the evidence panel because this demo does not train or measure translation quality."
+    }
+  ],
+  "validation_targets": [
+    {
+      "id": "normalization",
+      "metric": "probability_sum",
+      "expected": 1
+    },
+    {
+      "id": "causal_mask",
+      "metric": "future_mass",
+      "expected": 0
+    },
+    {
+      "id": "autoregression",
+      "metric": "generated_tokens",
+      "expected": 3
+    }
+  ]
+}

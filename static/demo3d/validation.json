@@ -1,0 +1,29 @@
+{
+  "results": [
+    {
+      "id": "v0",
+      "expected": 0,
+      "measured": 0,
+      "status": "pass"
+    },
+    {
+      "id": "v1",
+      "expected": 0,
+      "measured": 0,
+      "status": "pass"
+    },
+    {
+      "id": "v2",
+      "expected": 33,
+      "measured": 33,
+      "status": "pass"
+    },
+    {
+      "id": "v3",
+      "expected": 63,
+      "measured": 63,
+      "status": "pass"
+    }
+  ],
+  "summary": "Numerical agreement with the authored teaching notes; not a biological fit."
+}

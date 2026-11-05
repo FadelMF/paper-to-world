@@ -1,0 +1,250 @@
+{
+  "modality": "2d",
+  "visual_needs": [
+    {
+      "need": "See the cell boundary whose voltage the model tracks.",
+      "concept": "Resting potential",
+      "objects": [
+        "membrane",
+        "input"
+      ]
+    },
+    {
+      "need": "See input and leak pulling the voltage in opposite directions.",
+      "concept": "Membrane leak",
+      "objects": [
+        "input",
+        "leak",
+        "membrane"
+      ]
+    },
+    {
+      "need": "See the voltage reach the threshold and the spike leave.",
+      "concept": "Firing threshold",
+      "objects": [
+        "threshold",
+        "spike",
+        "axon"
+      ]
+    },
+    {
+      "need": "Count spikes in the first second as input grows.",
+      "concept": "Firing rhythm",
+      "objects": [
+        "rate",
+        "spike"
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "input",
+      "label": "Input",
+      "role": "signal",
+      "primitive": "path",
+      "position": [
+        -160,
+        95
+      ],
+      "size": [
+        245,
+        280
+      ],
+      "parent": null,
+      "description": "Branching input lines converging on the cell body, with particles that flow faster as I grows.",
+      "basis": "paper",
+      "evidence": "input",
+      "rationale": "The notes call it the external drive; branching lines are a drawing choice.",
+      "bindings": [
+        {
+          "state": "I",
+          "property": "particle speed",
+          "map": "0 nA still, 5 nA fastest"
+        }
+      ],
+      "explode": [
+        -80,
+        0
+      ]
+    },
+    {
+      "id": "membrane",
+      "label": "Membrane",
+      "role": "structure",
+      "primitive": "ellipse",
+      "position": [
+        -54,
+        80
+      ],
+      "size": [
+        190,
+        160
+      ],
+      "parent": null,
+      "description": "A round cell body outlined in ink; its fill shifts toward the accent color as V rises.",
+      "basis": "paper",
+      "evidence": "membrane",
+      "rationale": "",
+      "bindings": [
+        {
+          "state": "V",
+          "property": "fill",
+          "map": "-65 mV muted, -50 mV accent"
+        }
+      ],
+      "explode": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "leak",
+      "label": "Leak",
+      "role": "signal",
+      "primitive": "arrow",
+      "position": [
+        -93,
+        -15
+      ],
+      "size": [
+        40,
+        66
+      ],
+      "parent": "membrane",
+      "description": "An outward arrow on the membrane whose length grows with V minus rest.",
+      "basis": "paper",
+      "evidence": "leak",
+      "rationale": "",
+      "bindings": [
+        {
+          "state": "V",
+          "property": "arrow length",
+          "map": "length proportional to V + 65"
+        }
+      ],
+      "explode": [
+        0,
+        -60
+      ]
+    },
+    {
+      "id": "threshold",
+      "label": "Threshold",
+      "role": "structure",
+      "primitive": "rect",
+      "position": [
+        33,
+        73
+      ],
+      "size": [
+        31,
+        28
+      ],
+      "parent": "membrane",
+      "description": "A small gate where the axon begins, with a dashed -50 mV line on the voltage plot.",
+      "basis": "paper",
+      "evidence": "threshold",
+      "rationale": "",
+      "bindings": [
+        {
+          "state": "refractory",
+          "property": "gate closed",
+          "map": "closed while refractory > 0"
+        }
+      ],
+      "explode": [
+        40,
+        0
+      ]
+    },
+    {
+      "id": "axon",
+      "label": "Axon",
+      "role": "structure",
+      "primitive": "path",
+      "position": [
+        145,
+        72
+      ],
+      "size": [
+        265,
+        26
+      ],
+      "parent": null,
+      "description": "A long output path leading right from the cell body, ending in terminals.",
+      "basis": "paper",
+      "evidence": "axon",
+      "rationale": "",
+      "bindings": [],
+      "explode": [
+        90,
+        0
+      ]
+    },
+    {
+      "id": "spike",
+      "label": "Axon",
+      "role": "signal",
+      "primitive": "polyline",
+      "position": [
+        145,
+        72
+      ],
+      "size": [
+        265,
+        26
+      ],
+      "parent": "axon",
+      "description": "A sharp vertical line in the voltage trace and a brief flash along the axon for each spike.",
+      "basis": "paper",
+      "evidence": "spike",
+      "rationale": "",
+      "bindings": [
+        {
+          "state": "spikes",
+          "property": "flash",
+          "map": "flash when the count increases"
+        }
+      ],
+      "explode": [
+        90,
+        0
+      ]
+    },
+    {
+      "id": "rate",
+      "label": "Firing rhythm",
+      "role": "annotation",
+      "primitive": "text",
+      "position": [
+        293,
+        72
+      ],
+      "size": [
+        48,
+        80
+      ],
+      "parent": "axon",
+      "description": "A tag at the axon terminals showing spikes counted in the first 1 s.",
+      "basis": "hypothesis",
+      "evidence": null,
+      "rationale": "The notes report spike counts but draw no terminals; placing the count where spikes arrive keeps cause and result together.",
+      "bindings": [
+        {
+          "state": "spikes",
+          "property": "label",
+          "map": "spikes in the first 1 s"
+        }
+      ],
+      "explode": [
+        120,
+        0
+      ]
+    }
+  ],
+  "camera": [
+    0,
+    0,
+    6
+  ]
+}

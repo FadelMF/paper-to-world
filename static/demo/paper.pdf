@@ -1,0 +1,253 @@
+%PDF-1.3
+%‚„œ”
+1 0 obj
+<<
+/Producer (pypdf)
+/Title (A single leaky neuron\072 demonstration notes)
+/Author (Paper\055to\055World demo)
+>>
+endobj
+2 0 obj
+<<
+/Type /Pages
+/Count 4
+/Kids [ 5 0 R 7 0 R 9 0 R 11 0 R ]
+>>
+endobj
+3 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+>>
+endobj
+4 0 obj
+<<
+/Type /Font
+/Subtype /Type1
+/BaseFont /Helvetica
+>>
+endobj
+5 0 obj
+<<
+/Type /Page
+/Resources <<
+/Font <<
+/F1 4 0 R
+>>
+>>
+/MediaBox [ 0.0 0.0 612 792 ]
+/Parent 2 0 R
+/Contents 6 0 R
+>>
+endobj
+6 0 obj
+<<
+/Length 1209
+>>
+stream
+BT /F1 10 Tf 15.00 TL 48 748 Td
+(PAPER-TO-WORLD / AUTHORED DEMONSTRATION NOTES) Tj T*
+() Tj T*
+(A single leaky neuron: demonstration notes) Tj T*
+(Page 1: A neuron, at rest.) Tj T*
+() Tj T*
+(Background teaching material. Not a published research paper.) Tj T*
+() Tj T*
+(Before a neuron sends a signal, it holds a quiet electrical difference across its) Tj T*
+(membrane.) Tj T*
+() Tj T*
+(In this model, that resting potential is -65 millivolts; without an input, the) Tj T*
+(voltage stays there.) Tj T*
+() Tj T*
+(Parameters throughout these notes: rest/reset = -65 mV; resistance = 10 Mohm;) Tj T*
+(default tau = 20 ms. A resting neuron starts at V = -65 mV. I is applied current in) Tj T*
+(nA. These are illustrative model choices, not empirical measurements.) Tj T*
+() Tj T*
+(At rest with I = 0, both the input and the voltage difference from rest are zero.) Tj T*
+(There is no net change, so the model remains at -65 mV.) Tj T*
+() Tj T*
+(Membrane: The boundary that holds the voltage difference.) Tj T*
+() Tj T*
+(Input current: The external drive into our model neuron, measured in nanoamps.) Tj T*
+() Tj T*
+(Axon: The output path that carries the neuron's signal away from its cell body.) Tj T*
+() Tj T*
+ET
+endstream
+endobj
+7 0 obj
+<<
+/Type /Page
+/Resources <<
+/Font <<
+/F1 4 0 R
+>>
+>>
+/MediaBox [ 0.0 0.0 612 792 ]
+/Parent 2 0 R
+/Contents 8 0 R
+>>
+endobj
+8 0 obj
+<<
+/Length 1336
+>>
+stream
+BT /F1 10 Tf 15.00 TL 48 748 Td
+(PAPER-TO-WORLD / AUTHORED DEMONSTRATION NOTES) Tj T*
+() Tj T*
+(A single leaky neuron: demonstration notes) Tj T*
+(Page 2: An input becomes a voltage.) Tj T*
+() Tj T*
+(Background teaching material. Not a published research paper.) Tj T*
+() Tj T*
+(A steady input raises the membrane potential, but the charge also leaks away.) Tj T*
+() Tj T*
+(The balance approaches a new resting level; the time constant controls how quickly) Tj T*
+(it gets there.) Tj T*
+() Tj T*
+(Differential equation: tau * dV/dt = -\(V - Vrest\) + R*I. Numerical method: forward) Tj T*
+(Euler, dt = 0.1 ms. At each step, V += \(-\(V+65\)+10*I\)/tau * 0.1. Equilibrium: Vrest) Tj T*
+(+ R*I. There is no stochastic input.) Tj T*
+() Tj T*
+(The time constant divides the voltage's rate of change. A larger tau slows the) Tj T*
+(approach, while the equilibrium Vrest + RI remains the same. With 1 nA and R = 10) Tj T*
+(Mohm, that equilibrium is -55 mV.) Tj T*
+() Tj T*
+(Leak: The tendency for the membrane voltage to move back toward rest.) Tj T*
+() Tj T*
+(Integration: Input and leak together determine how voltage changes over time.) Tj T*
+() Tj T*
+(Steady input: A constant current pushes the voltage toward Vrest + RI.) Tj T*
+() Tj T*
+(Axon: The output path that carries the neuron's signal away from its cell body.) Tj T*
+() Tj T*
+ET
+endstream
+endobj
+9 0 obj
+<<
+/Type /Page
+/Resources <<
+/Font <<
+/F1 4 0 R
+>>
+>>
+/MediaBox [ 0.0 0.0 612 792 ]
+/Parent 2 0 R
+/Contents 10 0 R
+>>
+endobj
+10 0 obj
+<<
+/Length 1341
+>>
+stream
+BT /F1 10 Tf 15.00 TL 48 748 Td
+(PAPER-TO-WORLD / AUTHORED DEMONSTRATION NOTES) Tj T*
+() Tj T*
+(A single leaky neuron: demonstration notes) Tj T*
+(Page 3: A threshold changes everything.) Tj T*
+() Tj T*
+(Background teaching material. Not a published research paper.) Tj T*
+() Tj T*
+(When the membrane reaches -50 mV, our model emits a spike and resets to -65 mV.) Tj T*
+() Tj T*
+(A two-millisecond refractory interval follows, then the membrane begins integrating) Tj T*
+(again.) Tj T*
+() Tj T*
+(After the Euler voltage update, if V >= -50 mV: increment spike count; set V = -65) Tj T*
+(mV; set refractory timer = 2 ms. While that timer is positive, decrement it by dt) Tj T*
+(\(clamped at zero\) and hold V = -65 mV. A +20 mV graphical marker records an event,) Tj T*
+(not an action-potential waveform.) Tj T*
+() Tj T*
+(An input of 1 nA approaches -55 mV, below the -50 mV threshold. Inputs greater than) Tj T*
+(1.5 nA can reach the threshold in this model. The spike marker at +20 mV is a) Tj T*
+(drawing convention, not a biological action-potential waveform.) Tj T*
+() Tj T*
+(Threshold: The voltage at which the model emits a spike: -50 mV.) Tj T*
+() Tj T*
+(Spike: A discrete output event, drawn as a sharp line in the trace.) Tj T*
+() Tj T*
+(Reset: After a spike, voltage returns to -65 mV before integration resumes.) Tj T*
+() Tj T*
+ET
+endstream
+endobj
+11 0 obj
+<<
+/Type /Page
+/Resources <<
+/Font <<
+/F1 4 0 R
+>>
+>>
+/MediaBox [ 0.0 0.0 612 792 ]
+/Parent 2 0 R
+/Contents 12 0 R
+>>
+endobj
+12 0 obj
+<<
+/Length 1750
+>>
+stream
+BT /F1 10 Tf 15.00 TL 48 748 Td
+(PAPER-TO-WORLD / AUTHORED DEMONSTRATION NOTES) Tj T*
+() Tj T*
+(A single leaky neuron: demonstration notes) Tj T*
+(Page 4: More input. A faster rhythm.) Tj T*
+() Tj T*
+(Background teaching material. Not a published research paper.) Tj T*
+() Tj T*
+(Stronger input shortens the journey to threshold, so the neuron fires more often.) Tj T*
+() Tj T*
+(Our simulation produced 33 spikes at 2 nA and 63 spikes at 3 nA in the first 1 s) Tj T*
+(\(0?1000 ms\); the tags and the plot count the same window.) Tj T*
+() Tj T*
+(Reference targets measured over 1000 ms at tau=20 ms: I=0 nA -> 0 spikes; I=1 nA ->) Tj T*
+(0 spikes; I=2 nA -> 33 spikes; I=3 nA -> 63 spikes. Approximate continuous-model) Tj T*
+(rate for I>1.5 nA: f=1000/\(tau*ln\(R*I/\(R*I-15\)\)+2\) Hz. Finite observation time and) Tj T*
+(discrete Euler updates cause small differences from this formula. Passing numerical) Tj T*
+(agreement is not validation against a published paper or biological data.) Tj T*
+() Tj T*
+(The charging time depends on a logarithm, and every spike adds a refractory) Tj T*
+(interval. Our simulation gives 33 spikes at 2 nA and 63 at 3 nA in the first 1 s) Tj T*
+(\(0?1000 ms\), matching the checked Python reference. This is numerical agreement) Tj T*
+(with our reference model, not validation against a research paper or biological) Tj T*
+(data. The analytic expression is approximate for the discrete model.) Tj T*
+() Tj T*
+(Firing rate: Spikes counted in the first 1 s \(0?1000 ms\) of a run, per second.) Tj T*
+() Tj T*
+(Interspike interval: Time between two spike events; shorter intervals mean a faster) Tj T*
+(rhythm.) Tj T*
+() Tj T*
+(Threshold: The same -50 mV boundary, reached faster under stronger input.) Tj T*
+() Tj T*
+ET
+endstream
+endobj
+xref
+0 13
+0000000000 65535 f 
+0000000015 00000 n 
+0000000145 00000 n 
+0000000223 00000 n 
+0000000272 00000 n 
+0000000342 00000 n 
+0000000474 00000 n 
+0000001735 00000 n 
+0000001867 00000 n 
+0000003255 00000 n 
+0000003388 00000 n 
+0000004782 00000 n 
+0000004916 00000 n 
+trailer
+<<
+/Size 13
+/Root 3 0 R
+/Info 1 0 R
+>>
+startxref
+6719
+%%EOF

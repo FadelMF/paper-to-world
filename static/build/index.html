@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><link rel="icon" href="data:,"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Building your world · Paper-to-World</title>
+<link rel="stylesheet" href="/assets/ui/app.css">
+<link rel="stylesheet" href="/assets/vendor/katex/katex.min.css">
+<script defer src="/assets/vendor/katex/katex.min.js"></script>
+<link rel="stylesheet" href="/assets/build/style.css">
+<script type="module" src="/assets/build/progress.js"></script>
+</head><body>
+<header data-app-header data-section="Building your world"></header>
+<main>
+<section class="build-card" aria-labelledby="headline">
+<p id="sample-note" class="sample-note" hidden>Example walkthrough · Prepared teaching notes, with a slower pace so you can follow along.</p>
+<nav aria-label="Building progress"><ol id="steps">
+<li data-state="active" aria-current="step"><span class="circle"><span class="number">1</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 12 4 4 8-8"/></svg><span class="bang">!</span></span><span class="step-label">Reading the paper</span>
+<div class="card-body">
+<div aria-live="polite" aria-atomic="true"><h1 id="headline">Reading your paper</h1><p id="subline">Getting to know the paper you brought.</p></div>
+<ul id="activity" aria-label="Recent activity" aria-live="polite" aria-relevant="additions text"></ul>
+<p id="waiting" class="waiting" aria-live="off"></p>
+</div></li>
+<li data-state="pending"><span class="circle"><span class="number">2</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 12 4 4 8-8"/></svg><span class="bang">!</span></span><span class="step-label">Finding the core ideas</span></li>
+<li data-state="pending"><span class="circle"><span class="number">3</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 12 4 4 8-8"/></svg><span class="bang">!</span></span><span class="step-label">Designing your world</span></li>
+<li data-state="pending"><span class="circle"><span class="number">4</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 12 4 4 8-8"/></svg><span class="bang">!</span></span><span class="step-label">Building &amp; checking</span></li>
+<li data-state="pending"><span class="circle"><span class="number">5</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 12 4 4 8-8"/></svg><span class="bang">!</span></span><span class="step-label">Ready</span></li>
+</ol><p id="mobile-step">Reading the paper</p></nav>
+<p id="connection" role="status" hidden></p>
+</section>
+<section id="discovered" aria-labelledby="discovered-label"><h2 id="discovered-label">Discovered so far</h2>
+<p id="discovery-empty">The paper’s ideas and results will appear here as we read.</p>
+<h3 id="paper-title" hidden></h3><p id="authors" hidden></p>
+<div id="concepts" aria-label="Key ideas"></div><div id="equations"></div>
+<div id="view-choice" hidden><span id="view-icon" aria-hidden="true"></span><strong id="modality"></strong><p id="modality-reason"></p></div>
+<p id="checks" hidden></p>
+</section>
+<footer><button id="cancel" class="button" type="button">Cancel</button><div class="finish-actions"><button id="retry" class="button" type="button" hidden>Try again</button><button id="enter" class="button primary" type="button" disabled>Enter your world <span data-icon="arrow"></span></button></div></footer>
+</main></body></html>

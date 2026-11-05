@@ -1,0 +1,82 @@
+{
+  "answers": [
+    {
+      "keywords": [
+        "encoder",
+        "architecture",
+        "stack"
+      ],
+      "text": "The encoder reads source embeddings plus positional encoding. Each layer contains multi-head self-attention and a position-wise feed-forward network, each with residual add and layer normalization. Its output becomes memory for decoder cross-attention. Our inspectable model uses one layer; the paper stacks six. [p.3, §3.1]"
+    },
+    {
+      "keywords": [
+        "decoder",
+        "cross",
+        "memory"
+      ],
+      "text": "The decoder has masked self-attention over its shifted output prefix, cross-attention whose keys and values come from encoder memory, and a feed-forward sublayer. All use residual connections and normalization. Cutting the memory connection in lesson 4 sets the actual cross-attention value contribution to zero. [p.3, §3.1; p.5, §3.2.3]"
+    },
+    {
+      "keywords": [
+        "position",
+        "embedding",
+        "order"
+      ],
+      "text": "The paper adds positional encoding to scaled token embeddings because attention does not otherwise carry sequence ordering. The demo executes sine/cosine positional encoding and lets you remove it to compare the vectors. [pp.5–6, §3.4–3.5]"
+    },
+    {
+      "keywords": [
+        "train",
+        "result",
+        "bleu",
+        "evidence",
+        "schedule"
+      ],
+      "text": "The big model reports 28.4 BLEU for English–German and 41.8 for English–French. Our fixed untrained model does not reproduce those experiments. The schedule control evaluates equation (3), with 4,000 warmup steps, rather than performing training. Adam, dropout and label smoothing are explained from the paper. [p.7, §5; p.8, Table 2]"
+    },
+    {
+      "keywords": [
+        "generate",
+        "token",
+        "output",
+        "softmax"
+      ],
+      "text": "A linear map turns decoder features into vocabulary logits; softmax gives probabilities. Greedy generation selects the highest-probability token and appends it to the next decoder prefix. The demo runs that feedback loop for up to three generated IDs; its untrained weights do not produce reliable translations. [p.3, §3; p.5, §3.4]"
+    },
+    {
+      "keywords": [
+        "mask",
+        "future",
+        "causal"
+      ],
+      "text": "Decoder self-attention excludes future positions before softmax. With query 0 and the causal mask on, only token 0 is available. [p.3, §3.1]"
+    },
+    {
+      "keywords": [
+        "head",
+        "multi",
+        "projection"
+      ],
+      "text": "The paper computes attention in parallel using distinct learned projections, concatenates the head outputs and projects again. The base model has eight heads. Our two fixed heads illustrate projection effects only. [pp.4–5, §3.2.2]"
+    },
+    {
+      "keywords": [
+        "scale",
+        "sqrt",
+        "dimension"
+      ],
+      "text": "Dot-product attention divides scores by the square root of the key dimension to avoid large dot products pushing softmax into small-gradient regions. Here d_k=2. [p.4, §3.2.1]"
+    },
+    {
+      "keywords": [
+        "value",
+        "output",
+        "weight",
+        "query",
+        "key"
+      ],
+      "text": "Queries and keys determine compatibility scores. Softmax normalizes the scaled scores; their weights mix the values. Our token vectors are teaching inputs, not trained representations. [p.4, equation (1)]"
+    }
+  ],
+  "other": "Ask about queries, keys, values, scaling, causal masking or multiple heads."
+}

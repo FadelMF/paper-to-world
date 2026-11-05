@@ -1,0 +1,29 @@
+{
+  "results": [
+    {
+      "id": "normalization",
+      "expected": 1,
+      "measured": 1,
+      "status": "pass"
+    },
+    {
+      "id": "causal_mask",
+      "expected": 0,
+      "measured": 0,
+      "status": "pass"
+    },
+    {
+      "id": "autoregression",
+      "expected": 3,
+      "measured": 3,
+      "status": "pass"
+    },
+    {
+      "id": "translation",
+      "expected": "28.4 BLEU reported in the paper",
+      "measured": null,
+      "status": "not_measured"
+    }
+  ],
+  "summary": "Architecture and numerical invariants are tested on a small untrained model. Translation scores and other experiments are explained from source evidence."
+}

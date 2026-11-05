@@ -1,0 +1,13 @@
+include README.md CODEMAP.md DESIGN.md PRODUCT.md .env.example .gitignore uv.lock
+recursive-include scripts *.py *.sh
+recursive-include deploy *.service *.conf
+recursive-include docs *.md
+recursive-include .github *.yml
+recursive-include tests *.py *.js *.txt *.json
+prune runs
+prune artifacts
+prune dist
+prune .venv
+prune .git
+global-exclude *.pyc
+global-exclude __pycache__

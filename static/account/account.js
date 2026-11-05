@@ -1,0 +1,7 @@
+import '/assets/ui/app.js';
+const form=document.getElementById('account-form'),status=document.getElementById('account-status'),logout=document.getElementById('logout');
+async function request(url,body){const response=await fetch(url,body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{});const data=await response.json();if(!response.ok)throw new Error(typeof data.detail==='string'?data.detail:'Check your username and password.');return data;}
+async function refresh(){const data=await request('/api/account');form.hidden=!data.available||Boolean(data.username);logout.hidden=!data.username;status.textContent=data.username?`Signed in as ${data.username}.`:data.available?'You are using a private guest workspace.':'Accounts are unavailable on this server.';}
+form.onsubmit=async event=>{event.preventDefault();const buttons=[...form.querySelectorAll('button')];buttons.forEach(b=>b.disabled=true);status.textContent='Checking your account…';try{await request('/api/account/'+(event.submitter?.value||'login'),{username:document.getElementById('username').value.trim(),password:document.getElementById('password').value});document.getElementById('password').value='';await refresh();}catch(error){status.textContent=error.message;}finally{buttons.forEach(b=>b.disabled=false);}};
+logout.onclick=async()=>{logout.disabled=true;try{await request('/api/logout',{});await refresh();}catch(error){status.textContent=error.message;}finally{logout.disabled=false;}};
+refresh().catch(error=>status.textContent=error.message);

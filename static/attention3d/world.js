@@ -1,0 +1,17 @@
+import {createModel,advanceModel} from './model.js';
+import {createWorld} from '/assets/attention-common/runtime.js';
+import {makeRenderer} from '/assets/attention-common/spatial.js';
+export const dimensionality = 3;
+const objectIds=['source_embed', 'encoder_attention', 'encoder_norm', 'encoder_ff', 'encoder_output', 'target_embed', 'decoder_masked', 'cross_attention', 'decoder_ff', 'decoder_output', 'probabilities', 'generated'];
+const world=createWorld(createModel,advanceModel,makeRenderer,objectIds);
+export const init=world.init;
+export const setParams=world.setParams;
+export const setLesson=world.setLesson;
+export const highlight=world.highlight;
+export const getState=world.getState;
+export const play=world.play;
+export const pause=world.pause;
+export const step=world.step;
+export const onObjectClick=world.onObjectClick;
+export const setAssembly=world.setAssembly;
+export const objectBounds=world.objectBounds;

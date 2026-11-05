@@ -1,0 +1,768 @@
+[
+  {
+    "id": "architecture",
+    "title": "Two stacks. One path from input to output.",
+    "intro": [
+      "The encoder reads the source sentence and produces contextual representations. The decoder uses those representations and earlier output tokens to predict the next token.",
+      "Follow the left encoder tower upward, cross the memory bridge, then follow the right decoder tower to the output. The moving highlight traces computation, not elapsed training."
+    ],
+    "intro_links": [
+      "encoder_output",
+      "cross_attention"
+    ],
+    "equation": {
+      "latex": "\\mathbf{x}\\xrightarrow{\\mathrm{encoder}}\\mathbf{z}\\xrightarrow{\\mathrm{decoder}}\\mathbf{y}",
+      "symbols": [
+        {
+          "symbol": "x",
+          "meaning": "Representation entering this transformation.",
+          "links_to": "encoder_output"
+        }
+      ]
+    },
+    "terms": [
+      {
+        "term": "Encoder memory",
+        "definition": "Encoder memory; operation from the paper, drawn schematically.",
+        "links_to": "encoder_output"
+      },
+      {
+        "term": "Cross-attention",
+        "definition": "Cross-attention; operation from the paper, drawn schematically.",
+        "links_to": "cross_attention"
+      },
+      {
+        "term": "Generated tokens",
+        "definition": "Generated tokens; operation from the paper, drawn schematically.",
+        "links_to": "generated"
+      }
+    ],
+    "predict": {
+      "question": "Where does the decoder get information about the source sentence?",
+      "options": [
+        "Through cross-attention to encoder memory.",
+        "Only from its earlier output tokens.",
+        "From the final softmax alone."
+      ],
+      "answer_index": 0,
+      "why": "Encoder output supplies the keys and values of decoder cross-attention; decoder representations supply the queries.",
+      "page": 3
+    },
+    "controls": [
+      {
+        "symbol": "input_gain",
+        "label": "Embedding strength",
+        "min": 10,
+        "max": 300,
+        "step": 5,
+        "default": 100,
+        "units": "%"
+      },
+      {
+        "symbol": "source",
+        "label": "Source sentence",
+        "min": 0,
+        "max": 1,
+        "step": 1,
+        "default": 0,
+        "units": "0: I see cats · 1: I like cats"
+      }
+    ],
+    "challenge": {
+      "text": "Change the source sentence from “I see cats” to “I like cats”.",
+      "check_js": "state.encoder[0][0] < 0.5 && state.memory_energy > 0"
+    },
+    "figure_caption": "The source token changes, encoder memory changes, and the decoder receives a different memory.",
+    "scene_state": {
+      "visible": [
+        "source_embed",
+        "encoder_attention",
+        "encoder_norm",
+        "encoder_ff",
+        "encoder_output",
+        "target_embed",
+        "decoder_masked",
+        "cross_attention",
+        "decoder_ff",
+        "decoder_output",
+        "probabilities",
+        "generated"
+      ],
+      "camera": [
+        0,
+        1,
+        15
+      ],
+      "params": {
+        "source": 0,
+        "position": 1,
+        "memory": 1,
+        "prefix": 3,
+        "causal": 1,
+        "stage": 0,
+        "head": 0,
+        "training_step": 4000,
+        "input_gain": 100,
+        "position_gain": 100,
+        "score_gain": 100,
+        "memory_gain": 100
+      }
+    },
+    "source": {
+      "title": "Attention Is All You Need",
+      "page": 3,
+      "kind": "paper"
+    },
+    "learning": {
+      "objective": "Locate the encoder, decoder and connection between them.",
+      "action": "Change the source sentence from “I see cats” to “I like cats”.",
+      "observe": "The source token changes, encoder memory changes, and the decoder receives a different memory.",
+      "mechanism": "Self-attention mixes the source representations. Cross-attention makes those encoded representations available to the decoder.",
+      "focus": [
+        "encoder_output",
+        "cross_attention",
+        "generated"
+      ],
+      "test_params": {
+        "source": 1
+      },
+      "outcome_js": "state.encoder[0][0] < 0.5 && state.memory_energy > 0"
+    }
+  },
+  {
+    "id": "positions",
+    "title": "Words need positions before attention.",
+    "intro": [
+      "Token embeddings represent token identity; sine and cosine signals add position information because the Transformer has no recurrent or convolutional sequence ordering.",
+      "The table shows the actual vectors entering the encoder. Sweep the position signal from 0% to 300%; 100% is the baseline sine/cosine encoding."
+    ],
+    "intro_links": [
+      "source_embed",
+      "target_embed"
+    ],
+    "equation": {
+      "latex": "PE_{pos,2i}=\\sin(pos/10000^{2i/d_{model}})",
+      "symbols": [
+        {
+          "symbol": "x",
+          "meaning": "Representation entering this transformation.",
+          "links_to": "source_embed"
+        }
+      ]
+    },
+    "terms": [
+      {
+        "term": "Source embeddings",
+        "definition": "Source embeddings; operation from the paper, drawn schematically.",
+        "links_to": "source_embed"
+      },
+      {
+        "term": "Shifted output embeddings",
+        "definition": "Shifted output embeddings; operation from the paper, drawn schematically.",
+        "links_to": "target_embed"
+      }
+    ],
+    "predict": {
+      "question": "Why add position information?",
+      "options": [
+        "Attention alone does not encode the order of the input sequence.",
+        "It trains the vocabulary.",
+        "It replaces all query/key projections."
+      ],
+      "answer_index": 0,
+      "why": "The paper injects positional signals at the input because its architecture has neither recurrence nor convolution.",
+      "page": 5
+    },
+    "controls": [
+      {
+        "symbol": "position_gain",
+        "label": "Position signal strength",
+        "min": 0,
+        "max": 300,
+        "step": 5,
+        "default": 100,
+        "units": "%"
+      }
+    ],
+    "challenge": {
+      "text": "Drag position strength from 100% to 0%, then up to 300%.",
+      "check_js": "state.embedded[0][1] < -0.8"
+    },
+    "figure_caption": "The position contribution disappears at 0%; above 100% it becomes stronger in both stacks.",
+    "scene_state": {
+      "visible": [
+        "source_embed",
+        "encoder_attention",
+        "encoder_norm",
+        "encoder_ff",
+        "encoder_output",
+        "target_embed",
+        "decoder_masked",
+        "cross_attention",
+        "decoder_ff",
+        "decoder_output",
+        "probabilities",
+        "generated"
+      ],
+      "camera": [
+        0,
+        1,
+        15
+      ],
+      "params": {
+        "source": 0,
+        "position": 1,
+        "memory": 1,
+        "prefix": 3,
+        "causal": 1,
+        "stage": 1,
+        "head": 0,
+        "training_step": 4000,
+        "input_gain": 100,
+        "position_gain": 100,
+        "score_gain": 100,
+        "memory_gain": 100
+      }
+    },
+    "source": {
+      "title": "Attention Is All You Need",
+      "page": 5,
+      "kind": "paper"
+    },
+    "learning": {
+      "objective": "Separate token identity from sequence position.",
+      "action": "Drag position strength from 100% to 0%, then up to 300%.",
+      "observe": "The position contribution disappears at 0%; above 100% it becomes stronger in both stacks.",
+      "mechanism": "Scaled token embeddings and position vectors are added component by component before either stack.",
+      "focus": [
+        "source_embed",
+        "target_embed"
+      ],
+      "test_params": {
+        "position_gain": 0
+      },
+      "outcome_js": "state.embedded[0][1] < -0.8"
+    }
+  },
+  {
+    "id": "encoder",
+    "title": "Inside one encoder layer.",
+    "intro": [
+      "Two projected attention heads run in parallel, their outputs are concatenated and projected, and the result passes through a residual add and layer normalization.",
+      "A position-wise feed-forward network then transforms each token separately, followed by another add and normalization. Our small model executes this entire layer; the paper stacks six. The sharpness multiplier is an illustrative intervention; 100% keeps the paper’s scaling rule."
+    ],
+    "intro_links": [
+      "encoder_attention",
+      "encoder_norm"
+    ],
+    "equation": {
+      "latex": "\\mathrm{LayerNorm}(x+\\mathrm{Sublayer}(x))",
+      "symbols": [
+        {
+          "symbol": "x",
+          "meaning": "Representation entering this transformation.",
+          "links_to": "encoder_attention"
+        }
+      ]
+    },
+    "terms": [
+      {
+        "term": "Encoder self-attention",
+        "definition": "Encoder self-attention; operation from the paper, drawn schematically.",
+        "links_to": "encoder_attention"
+      },
+      {
+        "term": "Add & norm",
+        "definition": "Add & norm; operation from the paper, drawn schematically.",
+        "links_to": "encoder_norm"
+      },
+      {
+        "term": "Encoder feed-forward",
+        "definition": "Encoder feed-forward; operation from the paper, drawn schematically.",
+        "links_to": "encoder_ff"
+      },
+      {
+        "term": "Encoder memory",
+        "definition": "Encoder memory; operation from the paper, drawn schematically.",
+        "links_to": "encoder_output"
+      }
+    ],
+    "predict": {
+      "question": "What happens after the parallel attention heads?",
+      "options": [
+        "Concatenate, project, add and normalize, then apply feed-forward and another add and norm.",
+        "Discard every head but one.",
+        "Generate the next token immediately."
+      ],
+      "answer_index": 0,
+      "why": "Multi-head outputs are concatenated and projected. Each encoder layer includes attention and feed-forward sublayers with residual connections and normalization.",
+      "page": 3
+    },
+    "controls": [
+      {
+        "symbol": "score_gain",
+        "label": "Attention sharpness",
+        "min": 10,
+        "max": 400,
+        "step": 5,
+        "default": 100,
+        "units": "%"
+      },
+      {
+        "symbol": "head",
+        "label": "Inspect attention head",
+        "min": 0,
+        "max": 1,
+        "step": 1,
+        "default": 0,
+        "units": "index"
+      }
+    ],
+    "challenge": {
+      "text": "Sweep attention sharpness from 10% to 400%, then inspect head 2.",
+      "check_js": "state.head === 1 && Math.abs(state.head_outputs[0][0][0]-state.head_outputs[1][0][0]) > 0.1 && state.concat[0].length === 4"
+    },
+    "figure_caption": "The head weight distribution changes from diffuse to concentrated; the projected values and encoder output update.",
+    "scene_state": {
+      "visible": [
+        "source_embed",
+        "encoder_attention",
+        "encoder_norm",
+        "encoder_ff",
+        "encoder_output",
+        "target_embed",
+        "decoder_masked",
+        "cross_attention",
+        "decoder_ff",
+        "decoder_output",
+        "probabilities",
+        "generated"
+      ],
+      "camera": [
+        0,
+        1,
+        15
+      ],
+      "params": {
+        "source": 0,
+        "position": 1,
+        "memory": 1,
+        "prefix": 3,
+        "causal": 1,
+        "stage": 2,
+        "head": 0,
+        "training_step": 4000,
+        "input_gain": 100,
+        "position_gain": 100,
+        "score_gain": 100,
+        "memory_gain": 100
+      }
+    },
+    "source": {
+      "title": "Attention Is All You Need",
+      "page": 3,
+      "kind": "paper"
+    },
+    "learning": {
+      "objective": "Trace attention, residual normalization and the feed-forward transformation.",
+      "action": "Sweep attention sharpness from 10% to 400%, then inspect head 2.",
+      "observe": "The head weight distribution changes from diffuse to concentrated; the projected values and encoder output update.",
+      "mechanism": "Attention exchanges information between tokens; the feed-forward network transforms each token’s features. The residual path and normalization preserve a stable route through the layer.",
+      "focus": [
+        "encoder_attention",
+        "encoder_norm",
+        "encoder_ff",
+        "encoder_output"
+      ],
+      "test_params": {
+        "head": 1
+      },
+      "outcome_js": "state.head === 1 && Math.abs(state.head_outputs[0][0][0]-state.head_outputs[1][0][0]) > 0.1 && state.concat[0].length === 4"
+    }
+  },
+  {
+    "id": "decoder",
+    "title": "The decoder has two kinds of attention.",
+    "intro": [
+      "Masked self-attention lets each output position read only its available prefix. Cross-attention separately reads the encoder’s representation of the source sentence.",
+      "The decoder inspection shows both matrices. Enable the causal mask to remove the future entries, then cut the encoder connection to see the cross-attention contribution become zero."
+    ],
+    "intro_links": [
+      "decoder_masked",
+      "cross_attention"
+    ],
+    "equation": {
+      "latex": "\\mathrm{Attention}(Q_{dec},K_{enc},V_{enc})",
+      "symbols": [
+        {
+          "symbol": "x",
+          "meaning": "Representation entering this transformation.",
+          "links_to": "decoder_masked"
+        }
+      ]
+    },
+    "terms": [
+      {
+        "term": "Masked self-attention",
+        "definition": "Masked self-attention; operation from the paper, drawn schematically.",
+        "links_to": "decoder_masked"
+      },
+      {
+        "term": "Cross-attention",
+        "definition": "Cross-attention; operation from the paper, drawn schematically.",
+        "links_to": "cross_attention"
+      },
+      {
+        "term": "Encoder memory",
+        "definition": "Encoder memory; operation from the paper, drawn schematically.",
+        "links_to": "encoder_output"
+      },
+      {
+        "term": "Decoder feed-forward",
+        "definition": "Decoder feed-forward; operation from the paper, drawn schematically.",
+        "links_to": "decoder_ff"
+      }
+    ],
+    "predict": {
+      "question": "Which connection carries the source sentence into the decoder?",
+      "options": [
+        "Encoder-decoder cross-attention.",
+        "The causal mask itself.",
+        "The target embedding table alone."
+      ],
+      "answer_index": 0,
+      "why": "Masking restricts access within the output sequence. Cross-attention is a distinct sublayer whose keys and values come from the encoder.",
+      "page": 3
+    },
+    "controls": [
+      {
+        "symbol": "memory_gain",
+        "label": "Encoder memory contribution",
+        "min": 0,
+        "max": 200,
+        "step": 5,
+        "default": 100,
+        "units": "%"
+      },
+      {
+        "symbol": "causal",
+        "label": "Prevent attention to future tokens",
+        "min": 0,
+        "max": 1,
+        "step": 1,
+        "default": 0,
+        "units": "0 off · 1 on"
+      }
+    ],
+    "challenge": {
+      "text": "Enable the causal mask; sweep memory contribution from 0% to 200%.",
+      "check_js": "state.future_mass === 0 && state.memory_energy === 0 && state.decoder.length === 3"
+    },
+    "figure_caption": "Future attention mass becomes exactly zero. Cutting memory makes the cross-attention output zero, while the decoder still has its prefix.",
+    "scene_state": {
+      "visible": [
+        "source_embed",
+        "encoder_attention",
+        "encoder_norm",
+        "encoder_ff",
+        "encoder_output",
+        "target_embed",
+        "decoder_masked",
+        "cross_attention",
+        "decoder_ff",
+        "decoder_output",
+        "probabilities",
+        "generated"
+      ],
+      "camera": [
+        0,
+        1,
+        15
+      ],
+      "params": {
+        "source": 0,
+        "position": 1,
+        "memory": 1,
+        "prefix": 3,
+        "causal": 0,
+        "stage": 3,
+        "head": 0,
+        "training_step": 4000,
+        "input_gain": 100,
+        "position_gain": 100,
+        "score_gain": 100,
+        "memory_gain": 100
+      }
+    },
+    "source": {
+      "title": "Attention Is All You Need",
+      "page": 3,
+      "kind": "paper"
+    },
+    "learning": {
+      "objective": "Distinguish decoder masking from access to the source.",
+      "action": "Enable the causal mask; sweep memory contribution from 0% to 200%.",
+      "observe": "Future attention mass becomes exactly zero. Cutting memory makes the cross-attention output zero, while the decoder still has its prefix.",
+      "mechanism": "The mask excludes future logits before softmax. Cross-attention uses decoder queries and encoder keys/values; zero memory has zero value contribution.",
+      "focus": [
+        "decoder_masked",
+        "cross_attention",
+        "encoder_output",
+        "decoder_ff"
+      ],
+      "test_params": {
+        "causal": 1,
+        "memory_gain": 0
+      },
+      "outcome_js": "state.future_mass === 0 && state.memory_energy === 0 && state.decoder.length === 3"
+    }
+  },
+  {
+    "id": "generation",
+    "title": "Predict a token. Feed it back. Repeat.",
+    "intro": [
+      "A linear projection maps decoder features into vocabulary logits; softmax turns those logits into next-token probabilities. Greedy decoding selects the highest-probability token.",
+      "Generate up to twelve tokens. Each selected token is appended to the decoder prefix and used by the next pass. Fixed, untrained weights produce token IDs, not a meaningful translation."
+    ],
+    "intro_links": [
+      "decoder_output",
+      "probabilities"
+    ],
+    "equation": {
+      "latex": "p(y_t\\mid y_{<t},x)=\\mathrm{softmax}(Wz_t)",
+      "symbols": [
+        {
+          "symbol": "x",
+          "meaning": "Representation entering this transformation.",
+          "links_to": "decoder_output"
+        }
+      ]
+    },
+    "terms": [
+      {
+        "term": "Decoder add & norm",
+        "definition": "Decoder add & norm; operation from the paper, drawn schematically.",
+        "links_to": "decoder_output"
+      },
+      {
+        "term": "Linear & softmax",
+        "definition": "Linear & softmax; operation from the paper, drawn schematically.",
+        "links_to": "probabilities"
+      },
+      {
+        "term": "Generated tokens",
+        "definition": "Generated tokens; operation from the paper, drawn schematically.",
+        "links_to": "generated"
+      },
+      {
+        "term": "Shifted output embeddings",
+        "definition": "Shifted output embeddings; operation from the paper, drawn schematically.",
+        "links_to": "target_embed"
+      }
+    ],
+    "predict": {
+      "question": "What is fed into the next decoding pass?",
+      "options": [
+        "The previously generated tokens, shifted after the start token.",
+        "The unknown future output sequence.",
+        "Only the encoder layer count."
+      ],
+      "answer_index": 0,
+      "why": "Autoregressive generation conditions each next prediction on the source and previously generated outputs.",
+      "page": 3
+    },
+    "controls": [
+      {
+        "symbol": "prefix",
+        "label": "Tokens to generate",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "default": 1,
+        "units": "tokens"
+      }
+    ],
+    "challenge": {
+      "text": "Generate from one to twelve tokens and follow the growing decoder prefix.",
+      "check_js": "state.generated.length === 3 && state.prefix_ids[1] === state.generated[0] && Math.abs(state.probability_sum-1) < 1e-8"
+    },
+    "figure_caption": "The generated sequence grows, the shifted prefix includes earlier generated tokens, and the probability distribution is recomputed.",
+    "scene_state": {
+      "visible": [
+        "source_embed",
+        "encoder_attention",
+        "encoder_norm",
+        "encoder_ff",
+        "encoder_output",
+        "target_embed",
+        "decoder_masked",
+        "cross_attention",
+        "decoder_ff",
+        "decoder_output",
+        "probabilities",
+        "generated"
+      ],
+      "camera": [
+        0,
+        1,
+        15
+      ],
+      "params": {
+        "source": 0,
+        "position": 1,
+        "memory": 1,
+        "prefix": 1,
+        "causal": 1,
+        "stage": 4,
+        "head": 0,
+        "training_step": 4000,
+        "input_gain": 100,
+        "position_gain": 100,
+        "score_gain": 100,
+        "memory_gain": 100
+      }
+    },
+    "source": {
+      "title": "Attention Is All You Need",
+      "page": 3,
+      "kind": "paper"
+    },
+    "learning": {
+      "objective": "Follow autoregressive feedback from probability to the next decoder input.",
+      "action": "Generate from one to twelve tokens and follow the growing decoder prefix.",
+      "observe": "The generated sequence grows, the shifted prefix includes earlier generated tokens, and the probability distribution is recomputed.",
+      "mechanism": "The encoder memory can be reused, but the decoder runs again with the growing prefix. Future tokens are unavailable when each prediction is made.",
+      "focus": [
+        "decoder_output",
+        "probabilities",
+        "generated",
+        "target_embed"
+      ],
+      "test_params": {
+        "prefix": 3
+      },
+      "outcome_js": "state.generated.length === 3 && state.prefix_ids[1] === state.generated[0] && Math.abs(state.probability_sum-1) < 1e-8"
+    }
+  },
+  {
+    "id": "evidence",
+    "title": "What was trained—and what this demo proves.",
+    "intro": [
+      "The paper trains with Adam, learning-rate warmup, dropout and label smoothing. Its reported translation benchmarks and ablations are evidence from trained models, not consequences of a diagram.",
+      "The schedule below is equation (3), using the paper’s model dimension and 4,000 warmup steps. The evidence panel separately cites translation results, computational comparisons, parsing and limitations."
+    ],
+    "intro_links": [
+      "encoder_output",
+      "decoder_output"
+    ],
+    "equation": {
+      "latex": "lr=d_{model}^{-1/2}\\min(s^{-1/2},s\\cdot4000^{-3/2})",
+      "symbols": [
+        {
+          "symbol": "x",
+          "meaning": "Representation entering this transformation.",
+          "links_to": "encoder_output"
+        }
+      ]
+    },
+    "terms": [
+      {
+        "term": "Encoder memory",
+        "definition": "Encoder memory; operation from the paper, drawn schematically.",
+        "links_to": "encoder_output"
+      },
+      {
+        "term": "Decoder add & norm",
+        "definition": "Decoder add & norm; operation from the paper, drawn schematically.",
+        "links_to": "decoder_output"
+      },
+      {
+        "term": "Linear & softmax",
+        "definition": "Linear & softmax; operation from the paper, drawn schematically.",
+        "links_to": "probabilities"
+      }
+    ],
+    "predict": {
+      "question": "Does this small untrained model reproduce the paper’s translation scores?",
+      "options": [
+        "No; those are reported results of the paper’s trained models.",
+        "Yes, because its weights sum to one.",
+        "Yes, because a 3D diagram renders."
+      ],
+      "answer_index": 0,
+      "why": "Numerical architecture checks establish implementation behavior. Translation benchmarks require trained models, data, evaluation and compute described in the paper.",
+      "page": 7
+    },
+    "controls": [
+      {
+        "symbol": "training_step",
+        "label": "Training schedule step",
+        "min": 1,
+        "max": 32000,
+        "step": 1,
+        "default": 4000,
+        "units": "step"
+      }
+    ],
+    "challenge": {
+      "text": "Sweep the schedule from step 1 through warmup at 4,000 to step 32,000.",
+      "check_js": "state.training_step === 8000 && state.learning_rate < 0.0006 && state.learning_rate > 0"
+    },
+    "figure_caption": "The learning rate falls after warmup. The reported BLEU scores stay in the evidence panel because this demo does not train or measure translation quality.",
+    "scene_state": {
+      "visible": [
+        "source_embed",
+        "encoder_attention",
+        "encoder_norm",
+        "encoder_ff",
+        "encoder_output",
+        "target_embed",
+        "decoder_masked",
+        "cross_attention",
+        "decoder_ff",
+        "decoder_output",
+        "probabilities",
+        "generated"
+      ],
+      "camera": [
+        0,
+        1,
+        15
+      ],
+      "params": {
+        "source": 0,
+        "position": 1,
+        "memory": 1,
+        "prefix": 3,
+        "causal": 1,
+        "stage": 5,
+        "head": 0,
+        "training_step": 4000,
+        "input_gain": 100,
+        "position_gain": 100,
+        "score_gain": 100,
+        "memory_gain": 100
+      }
+    },
+    "source": {
+      "title": "Attention Is All You Need",
+      "page": 7,
+      "kind": "paper"
+    },
+    "learning": {
+      "objective": "Distinguish a reproducible mechanism from a published empirical result.",
+      "action": "Sweep the schedule from step 1 through warmup at 4,000 to step 32,000.",
+      "observe": "The learning rate falls after warmup. The reported BLEU scores stay in the evidence panel because this demo does not train or measure translation quality.",
+      "mechanism": "After warmup, equation (3) decays as the inverse square root of the step. Source results, measured demo checks and omitted experiments are kept separate.",
+      "focus": [
+        "encoder_output",
+        "decoder_output",
+        "probabilities"
+      ],
+      "test_params": {
+        "training_step": 8000
+      },
+      "outcome_js": "state.training_step === 8000 && state.learning_rate < 0.0006 && state.learning_rate > 0"
+    }
+  }
+]

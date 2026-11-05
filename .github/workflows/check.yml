@@ -1,0 +1,26 @@
+name: Verify
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.17.0'
+      - run: uv sync --locked
+      - run: uv run --locked python -m playwright install --with-deps chromium
+      - run: scripts/check.sh
+      - run: uv run --locked python tests/browser_isolation.py
+      - run: uv run --locked python tests/browser_live_path.py
+      - run: uv run --locked pip-audit
+      - run: uv build
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: test-evidence
+          path: artifacts/

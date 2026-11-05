@@ -1,0 +1,83 @@
+{
+  "title": "One neuron in three dimensions: demonstration notes",
+  "authors": "",
+  "one_line_summary": "How input current changes a neuron's voltage and firing rhythm.",
+  "concepts": [
+    {
+      "name": "Resting potential",
+      "page": 1
+    },
+    {
+      "name": "Membrane leak",
+      "page": 2
+    },
+    {
+      "name": "Firing threshold",
+      "page": 3
+    },
+    {
+      "name": "Firing rhythm",
+      "page": 4
+    }
+  ],
+  "equations": [
+    {
+      "latex": "\\tau\\frac{dV}{dt}=-(V-V_{\\mathrm{rest}})+RI",
+      "meaning": "the balance of input and membrane leak",
+      "page": 2
+    },
+    {
+      "latex": "V \\geq -50\\,\\mathrm{mV}\\;\\Rightarrow\\;V\\leftarrow -65\\,\\mathrm{mV}",
+      "meaning": "the firing threshold and reset",
+      "page": 3
+    }
+  ],
+  "claims": [
+    {
+      "id": "c0",
+      "statement": "0 spikes at 0 nA over one second",
+      "page": 4
+    },
+    {
+      "id": "c1",
+      "statement": "0 spikes at 1 nA over one second",
+      "page": 4
+    },
+    {
+      "id": "c2",
+      "statement": "33 spikes at 2 nA over one second",
+      "page": 4
+    },
+    {
+      "id": "c3",
+      "statement": "63 spikes at 3 nA over one second",
+      "page": 4
+    }
+  ],
+  "learning_topics": [
+    {
+      "id": "rest",
+      "title": "Resting voltage",
+      "page": 1,
+      "required": true
+    },
+    {
+      "id": "integrate",
+      "title": "Input and membrane leak",
+      "page": 2,
+      "required": true
+    },
+    {
+      "id": "threshold",
+      "title": "Threshold, reset and refractory period",
+      "page": 3,
+      "required": true
+    },
+    {
+      "id": "rhythm",
+      "title": "Firing rhythm and validation",
+      "page": 4,
+      "required": true
+    }
+  ]
+}

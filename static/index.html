@@ -1,0 +1,45 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><link rel="icon" href="data:,"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Start exploring · Paper to World</title>
+<link rel="stylesheet" href="/assets/ui/app.css"><link rel="stylesheet" href="/assets/home/style.css"><link rel="stylesheet" href="/assets/lesson/world.css">
+<script type="importmap">{"imports":{"three":"/assets/vendor/three/three.module.js","three/addons/":"/assets/vendor/three/addons/"}}</script>
+<script type="module" src="/assets/home/home.js"></script>
+</head><body class="home-page">
+<header data-app-header data-section="Your learning workspace"></header>
+<main class="home">
+<div class="home-side">
+<section class="welcome"><h1>A paper is just the beginning.</h1><p>Change something. See what happens. Make the idea your own.</p>
+<a id="resume" class="resume-link" hidden><span data-icon="clock"></span><span><small>Pick up where you left off</small><strong id="resume-title"></strong></span><span data-icon="arrow"></span></a></section>
+<section class="start-panel" aria-label="Choose how to start">
+<div class="mode-tabs" role="tablist" aria-label="Choose your starting point"><button id="examples-tab" role="tab" aria-selected="true" aria-controls="examples-panel">Explore examples</button><button id="paper-tab" role="tab" aria-selected="false" aria-controls="paper-panel" tabindex="-1">Use your paper</button></div>
+<div id="examples-panel" role="tabpanel" aria-labelledby="examples-tab">
+<div class="example-options" role="radiogroup" aria-label="Prepared examples">
+<button class="example-option" role="radio" aria-checked="false" data-example="2d"><span class="example-symbol" data-icon="chart"></span><span class="example-copy"><strong>Neuron · 2D</strong><span>Change the input. Find the threshold.</span><small>4 guided lessons <span class="pill">2D</span></small></span><span class="selection-mark" data-icon="check"></span></button>
+<button class="example-option" role="radio" aria-checked="false" data-example="3d"><span class="example-symbol" data-icon="cube"></span><span class="example-copy"><strong>Neuron · 3D</strong><span>Turn it around. Follow the signal.</span><small>4 guided lessons <span class="pill">3D</span></small></span><span class="selection-mark" data-icon="check"></span></button>
+<button class="example-option" role="radio" aria-checked="false" data-example="attention2d"><span class="example-symbol" data-icon="chart"></span><span class="example-copy"><strong>Transformer · 2D</strong><span>Follow the input through encoder and decoder.</span><small>6 guided lessons <span class="pill">2D</span></small></span><span class="selection-mark" data-icon="check"></span></button>
+<button class="example-option" role="radio" aria-checked="false" data-example="attention3d"><span class="example-symbol" data-icon="cube"></span><span class="example-copy"><strong>Transformer · 3D</strong><span>Follow the input through encoder and decoder.</span><small>6 guided lessons <span class="pill">3D</span></small></span><span class="selection-mark" data-icon="check"></span></button>
+</div>
+<a id="open-example" class="button primary full" href="/demo">Open this example <span data-icon="arrow"></span></a>
+</div>
+<div id="paper-panel" role="tabpanel" aria-labelledby="paper-tab" hidden>
+<p class="panel-intro">Bring a research paper. Get a world built around its central idea.</p>
+<div class="source-tabs" role="tablist" aria-label="Document source"><button id="pdf-tab" role="tab" aria-selected="true" aria-controls="pdf-source">Upload PDF</button><button id="arxiv-tab" role="tab" aria-selected="false" aria-controls="arxiv-source" tabindex="-1">arXiv paper</button></div>
+<form id="upload">
+<div id="pdf-source" role="tabpanel" aria-labelledby="pdf-tab"><div id="drop-zone" class="drop-zone"><input id="pdf" type="file" name="file" accept="application/pdf"><label for="pdf"><span class="upload-symbol" data-icon="upload"></span><strong id="file-title">Drop your paper here</strong><span id="file-detail">or choose a PDF from your computer</span><span class="choose-file">Choose PDF</span></label></div><button id="remove-file" class="button quiet" type="button" hidden>Remove file</button></div>
+<div id="arxiv-source" role="tabpanel" aria-labelledby="arxiv-tab" hidden><label class="field-label" for="arxiv">arXiv ID or link</label><input class="field" id="arxiv" name="arxiv_id" placeholder="e.g. 1706.03762" autocomplete="off"><p class="notice">Find the ID on the paper’s arXiv page.</p></div>
+<p id="availability" class="availability" role="status">Checking live building availability…</p>
+<button id="build-paper" class="button primary full" type="submit">Build my world <span data-icon="arrow"></span></button>
+<p id="status" class="inline-error" role="status" hidden></p>
+</form>
+<p class="paper-note"><span data-icon="info"></span>One paper, one chosen view. We select 2D or 3D to fit the idea.</p>
+</div>
+</section>
+</div>
+<section id="visual" class="world-panel" aria-label="Live preview of the selected example">
+<div class="world-heading"><span id="world-dimension" class="pill blue">2D world</span><span id="preview-title" class="world-title">Neuron · 2D</span><span id="clock-status" class="world-status">Running</span><a id="preview-open" class="preview-open" href="/demo" aria-label="Open the full example" title="Open the full example"><span data-icon="expand"></span></a></div>
+<div id="world"></div>
+<div class="figure"><p id="caption"></p></div>
+<div class="preview-controls"><div id="preview-sliders"></div><button id="preview-play" class="icon-button" aria-label="Pause preview" disabled><span data-icon="pause"></span></button></div>
+<p id="preview-error" class="notice" hidden></p>
+</section>
+</main>
+</body></html>

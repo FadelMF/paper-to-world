@@ -1,0 +1,270 @@
+%PDF-1.3
+%‚„œ”
+1 0 obj
+<<
+/Producer (pypdf)
+/Title (One neuron in three dimensions\072 demonstration notes)
+/Author (Paper\055to\055World demo)
+>>
+endobj
+2 0 obj
+<<
+/Type /Pages
+/Count 4
+/Kids [ 5 0 R 7 0 R 9 0 R 11 0 R ]
+>>
+endobj
+3 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+>>
+endobj
+4 0 obj
+<<
+/Type /Font
+/Subtype /Type1
+/BaseFont /Helvetica
+>>
+endobj
+5 0 obj
+<<
+/Type /Page
+/Resources <<
+/Font <<
+/F1 4 0 R
+>>
+>>
+/MediaBox [ 0.0 0.0 612 792 ]
+/Parent 2 0 R
+/Contents 6 0 R
+>>
+endobj
+6 0 obj
+<<
+/Length 1780
+>>
+stream
+BT /F1 10 Tf 15.00 TL 48 748 Td
+(PAPER-TO-WORLD / AUTHORED DEMONSTRATION NOTES) Tj T*
+() Tj T*
+(One neuron in three dimensions: demonstration notes) Tj T*
+(Page 1: Meet a neuron in 3D.) Tj T*
+() Tj T*
+(Background teaching material. Not a published research paper.) Tj T*
+() Tj T*
+(Before a neuron sends a signal, it holds a quiet electrical difference across its) Tj T*
+(membrane.) Tj T*
+() Tj T*
+(In this model, that resting potential is -65 millivolts; without an input, the) Tj T*
+(voltage stays there.) Tj T*
+() Tj T*
+(Rotate the schematic neuron to see its branching inputs, cell body, and myelinated) Tj T*
+(axon.) Tj T*
+() Tj T*
+(Parameters throughout these notes: rest/reset = -65 mV; resistance = 10 Mohm;) Tj T*
+(default tau = 20 ms. A resting neuron starts at V = -65 mV. I is applied current in) Tj T*
+(nA. These are illustrative model choices, not empirical measurements. The 3D) Tj T*
+(anatomy is schematic. Dendrites are drawn as branching inputs, the soma as the cell) Tj T*
+(body, and six myelin sheaths around the axon. Geometry and myelin do not affect) Tj T*
+(this single-compartment model.) Tj T*
+() Tj T*
+(At rest with I = 0, both the input and the voltage difference from rest are zero.) Tj T*
+(There is no net change, so the model remains at -65 mV.) Tj T*
+() Tj T*
+(Membrane: The boundary that holds the voltage difference.) Tj T*
+() Tj T*
+(Dendrites / input: The branching input tree. The slider applies one lumped input) Tj T*
+(current to the model, not a separate current in each branch.) Tj T*
+() Tj T*
+(Axon: The output path that carries the neuron's signal away from its cell body.) Tj T*
+() Tj T*
+(Myelin: Insulating sheaths illustrated around the axon. Their geometry does not) Tj T*
+(change this single-compartment calculation.) Tj T*
+() Tj T*
+ET
+endstream
+endobj
+7 0 obj
+<<
+/Type /Page
+/Resources <<
+/Font <<
+/F1 4 0 R
+>>
+>>
+/MediaBox [ 0.0 0.0 612 792 ]
+/Parent 2 0 R
+/Contents 8 0 R
+>>
+endobj
+8 0 obj
+<<
+/Length 1530
+>>
+stream
+BT /F1 10 Tf 15.00 TL 48 748 Td
+(PAPER-TO-WORLD / AUTHORED DEMONSTRATION NOTES) Tj T*
+() Tj T*
+(One neuron in three dimensions: demonstration notes) Tj T*
+(Page 2: Input arrives at the dendrites.) Tj T*
+() Tj T*
+(Background teaching material. Not a published research paper.) Tj T*
+() Tj T*
+(Input collects in the branching dendrites and flows into the cell body, the soma.) Tj T*
+() Tj T*
+(In the soma the input charges the membrane while a leak pulls it back toward rest;) Tj T*
+(the time constant sets how fast it settles.) Tj T*
+() Tj T*
+(Differential equation: tau * dV/dt = -\(V - Vrest\) + R*I. Numerical method: forward) Tj T*
+(Euler, dt = 0.1 ms. At each step, V += \(-\(V+65\)+10*I\)/tau * 0.1. Equilibrium: Vrest) Tj T*
+(+ R*I. There is no stochastic input. One voltage represents the whole neuron. This) Tj T*
+(is not a spatial cable model. Branches and membrane pores illustrate the lesson,) Tj T*
+(not individually simulated compartments or ion channels.) Tj T*
+() Tj T*
+(With R = 10 Mohm the voltage settles at Vrest + RI = -65 + 10 = -55 mV. There the) Tj T*
+(leak exactly balances the input, so it stays below the -50 mV threshold.) Tj T*
+() Tj T*
+(Dendrites: The branching input tree. The slider applies one lumped input current to) Tj T*
+(the model, not a separate current in each branch.) Tj T*
+() Tj T*
+(Soma: The cell body. Its single membrane voltage stands for the whole neuron in) Tj T*
+(this model.) Tj T*
+() Tj T*
+(Leak: The tendency for the membrane voltage to move back toward rest.) Tj T*
+() Tj T*
+ET
+endstream
+endobj
+9 0 obj
+<<
+/Type /Page
+/Resources <<
+/Font <<
+/F1 4 0 R
+>>
+>>
+/MediaBox [ 0.0 0.0 612 792 ]
+/Parent 2 0 R
+/Contents 10 0 R
+>>
+endobj
+10 0 obj
+<<
+/Length 1503
+>>
+stream
+BT /F1 10 Tf 15.00 TL 48 748 Td
+(PAPER-TO-WORLD / AUTHORED DEMONSTRATION NOTES) Tj T*
+() Tj T*
+(One neuron in three dimensions: demonstration notes) Tj T*
+(Page 3: The trigger zone decides.) Tj T*
+() Tj T*
+(Background teaching material. Not a published research paper.) Tj T*
+() Tj T*
+(Where the axon leaves the soma, the trigger zone watches the membrane voltage.) Tj T*
+() Tj T*
+(When it reaches -50 mV the model emits a spike, resets to -65 mV and holds there) Tj T*
+(for 2 ms.) Tj T*
+() Tj T*
+(After the Euler voltage update, if V >= -50 mV: increment spike count; set V = -65) Tj T*
+(mV; set refractory timer = 2 ms. While that timer is positive, decrement it by dt) Tj T*
+(\(clamped at zero\) and hold V = -65 mV. A +20 mV graphical marker records an event,) Tj T*
+(not an action-potential waveform. Each spike triggers a 60 ms illustrative transit) Tj T*
+(animation along the 3D axon. This duration is a visualization choice, not a) Tj T*
+(computed or measured conduction speed.) Tj T*
+() Tj T*
+(At 1.4 nA the voltage settles at -65 + 14 = -51 mV and never reaches -50 mV. In) Tj T*
+(this model the input must exceed 1.5 nA to fire.) Tj T*
+() Tj T*
+(Trigger zone: The axon hillock, drawn where the axon begins. The model fires when) Tj T*
+(the voltage reaches -50 mV.) Tj T*
+() Tj T*
+(Spike: A discrete output event: a pulse leaves the trigger zone and travels along) Tj T*
+(the axon.) Tj T*
+() Tj T*
+(Reset: After a spike, voltage returns to -65 mV before integration resumes.) Tj T*
+() Tj T*
+ET
+endstream
+endobj
+11 0 obj
+<<
+/Type /Page
+/Resources <<
+/Font <<
+/F1 4 0 R
+>>
+>>
+/MediaBox [ 0.0 0.0 612 792 ]
+/Parent 2 0 R
+/Contents 12 0 R
+>>
+endobj
+12 0 obj
+<<
+/Length 1801
+>>
+stream
+BT /F1 10 Tf 15.00 TL 48 748 Td
+(PAPER-TO-WORLD / AUTHORED DEMONSTRATION NOTES) Tj T*
+() Tj T*
+(One neuron in three dimensions: demonstration notes) Tj T*
+(Page 4: Follow the signal down the axon.) Tj T*
+() Tj T*
+(Background teaching material. Not a published research paper.) Tj T*
+() Tj T*
+(Stronger input shortens the climb to threshold, so pulses leave the trigger zone) Tj T*
+(more often.) Tj T*
+() Tj T*
+(Our simulation produced 33 spikes at 2 nA and 63 at 3 nA in the first 1 s \(0?1000) Tj T*
+(ms\); the axon and terminal tags count the same window.) Tj T*
+() Tj T*
+(Reference targets measured over 1000 ms at tau=20 ms: I=0 nA -> 0 spikes; I=1 nA ->) Tj T*
+(0 spikes; I=2 nA -> 33 spikes; I=3 nA -> 63 spikes. Approximate continuous-model) Tj T*
+(rate for I>1.5 nA: f=1000/\(tau*ln\(R*I/\(R*I-15\)\)+2\) Hz. Finite observation time and) Tj T*
+(discrete Euler updates cause small differences from this formula. Passing numerical) Tj T*
+(agreement is not validation against a published paper or biological data. The 3D) Tj T*
+(presentation uses exactly the same discrete update rule as the Python and 2D) Tj T*
+(references.) Tj T*
+() Tj T*
+(This single-compartment model has one membrane voltage and no cable, so myelin and) Tj T*
+(branch length cannot change the count. Our simulation gives 33 spikes at 2 nA and) Tj T*
+(63 at 3 nA in the first 1 s \(0?1000 ms\), matching the checked Python reference.) Tj T*
+() Tj T*
+(Axon terminals: Where pulses arrive. The tag shows the firing rate from the first 1) Tj T*
+(s.) Tj T*
+() Tj T*
+(Interspike interval: Time between two spikes; shorter intervals mean a faster) Tj T*
+(rhythm.) Tj T*
+() Tj T*
+(Myelin: Insulating sheaths illustrated around the axon. Their geometry does not) Tj T*
+(change this single-compartment calculation.) Tj T*
+() Tj T*
+ET
+endstream
+endobj
+xref
+0 13
+0000000000 65535 f 
+0000000015 00000 n 
+0000000154 00000 n 
+0000000232 00000 n 
+0000000281 00000 n 
+0000000351 00000 n 
+0000000483 00000 n 
+0000002315 00000 n 
+0000002447 00000 n 
+0000004029 00000 n 
+0000004162 00000 n 
+0000005718 00000 n 
+0000005852 00000 n 
+trailer
+<<
+/Size 13
+/Root 3 0 R
+/Info 1 0 R
+>>
+startxref
+7706
+%%EOF

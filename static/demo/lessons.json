@@ -1,0 +1,483 @@
+[
+  {
+    "id": "rest",
+    "title": "A neuron, at rest.",
+    "intro": [
+      "Before a neuron sends a signal, it holds a quiet electrical difference across its membrane.",
+      "In this model, that resting potential is −65 millivolts; without an input, the voltage stays there."
+    ],
+    "intro_links": [
+      "membrane",
+      "input"
+    ],
+    "equation": {
+      "latex": "V = V_{\\mathrm{rest}} = -65\\,\\mathrm{mV}",
+      "symbols": [
+        {
+          "symbol": "V",
+          "meaning": "The membrane’s current electrical potential, in mV.",
+          "links_to": "membrane"
+        },
+        {
+          "symbol": "V_{\\mathrm{rest}}",
+          "meaning": "The resting level: −65 mV in this teaching model.",
+          "links_to": "membrane"
+        }
+      ]
+    },
+    "terms": [
+      {
+        "term": "Membrane",
+        "definition": "The boundary that holds the voltage difference.",
+        "links_to": "membrane"
+      },
+      {
+        "term": "Input current",
+        "definition": "The external drive into our model neuron, measured in nanoamps.",
+        "links_to": "input"
+      },
+      {
+        "term": "Axon",
+        "definition": "The output path that carries the neuron’s signal away from its cell body.",
+        "links_to": "axon"
+      }
+    ],
+    "predict": {
+      "question": "With no input, what happens to a neuron at rest?",
+      "options": [
+        "Its voltage stays at −65 mV.",
+        "Its voltage rises by itself.",
+        "It fires a spike immediately."
+      ],
+      "answer_index": 0,
+      "why": "At rest with I = 0, both the input and the voltage difference from rest are zero. There is no net change, so the model remains at −65 mV.",
+      "page": 1
+    },
+    "controls": [
+      {
+        "symbol": "I",
+        "label": "Input current",
+        "min": 0,
+        "max": 10,
+        "step": 0.1,
+        "default": 0,
+        "units": "nA"
+      }
+    ],
+    "challenge": {
+      "text": "Set input to 0 nA and watch the voltage and spike count.",
+      "check_js": "state.time >= 200 && Math.abs(state.V+65)<0.01 && state.spikes === 0"
+    },
+    "figure_caption": "A quiet neuron. Input arrives from the left; the membrane holds its resting potential.",
+    "scene_state": {
+      "visible": [
+        "input",
+        "membrane",
+        "axon"
+      ],
+      "camera": [
+        0,
+        -35,
+        6
+      ],
+      "params": {
+        "I": 0,
+        "tau": 20
+      }
+    },
+    "source": {
+      "title": "A single leaky neuron: demonstration notes",
+      "page": 1,
+      "kind": "background"
+    },
+    "learning": {
+      "objective": "Understand why zero input leaves the voltage at rest.",
+      "action": "Set input to 0 nA and watch the voltage and spike count.",
+      "observe": "The membrane stays at −65 mV and the spike count stays zero.",
+      "mechanism": "At rest, input and leak cancel to zero, so the voltage derivative is zero.",
+      "focus": [
+        "input",
+        "membrane"
+      ],
+      "test_params": {
+        "I": 0
+      },
+      "outcome_js": "state.time >= 200 && Math.abs(state.V+65)<0.01 && state.spikes === 0"
+    }
+  },
+  {
+    "id": "integrate",
+    "title": "An input becomes a voltage.",
+    "intro": [
+      "A steady input raises the membrane potential, but the charge also leaks away.",
+      "The balance approaches a new resting level; the time constant controls how quickly it gets there."
+    ],
+    "intro_links": [
+      "input",
+      "leak"
+    ],
+    "equation": {
+      "latex": "\\tau\\frac{dV}{dt}=-(V-V_{\\mathrm{rest}})+RI",
+      "symbols": [
+        {
+          "symbol": "V",
+          "meaning": "Membrane potential, measured in mV.",
+          "links_to": "membrane"
+        },
+        {
+          "symbol": "I",
+          "meaning": "Input current, in nA; the resistance R is fixed at 10 MΩ.",
+          "links_to": "input"
+        },
+        {
+          "symbol": "\\tau",
+          "meaning": "Time constant, in ms: a larger value means a slower response.",
+          "links_to": "leak"
+        }
+      ]
+    },
+    "terms": [
+      {
+        "term": "Leak",
+        "definition": "The tendency for the membrane voltage to move back toward rest.",
+        "links_to": "leak"
+      },
+      {
+        "term": "Integration",
+        "definition": "Input and leak together determine how voltage changes over time.",
+        "links_to": "membrane"
+      },
+      {
+        "term": "Steady input",
+        "definition": "A constant current pushes the voltage toward Vrest + RI.",
+        "links_to": "input"
+      },
+      {
+        "term": "Axon",
+        "definition": "The output path that carries the neuron’s signal away from its cell body.",
+        "links_to": "axon"
+      }
+    ],
+    "predict": {
+      "question": "What happens when you make the time constant larger?",
+      "options": [
+        "The voltage reaches its new level faster.",
+        "The voltage approaches the same level more slowly.",
+        "The input current disappears."
+      ],
+      "answer_index": 1,
+      "why": "The time constant divides the voltage’s rate of change. A larger τ slows the approach, while the equilibrium Vrest + RI remains the same. With 1 nA and R = 10 MΩ, that equilibrium is −55 mV.",
+      "page": 2
+    },
+    "controls": [
+      {
+        "symbol": "I",
+        "label": "Input current",
+        "min": 0,
+        "max": 10,
+        "step": 0.1,
+        "default": 0.5,
+        "units": "nA"
+      },
+      {
+        "symbol": "tau",
+        "label": "Time constant τ",
+        "min": 5,
+        "max": 100,
+        "step": 1,
+        "default": 20,
+        "units": "ms"
+      }
+    ],
+    "challenge": {
+      "text": "Set input to 1 nA and watch voltage approach its subthreshold equilibrium.",
+      "check_js": "state.time >= 200 && Math.abs(state.V+55)<0.05 && state.spikes === 0"
+    },
+    "figure_caption": "Incoming current and membrane leakage compete. Change τ to feel the difference in pace.",
+    "scene_state": {
+      "visible": [
+        "input",
+        "membrane",
+        "leak",
+        "axon"
+      ],
+      "camera": [
+        0,
+        0,
+        6
+      ],
+      "params": {
+        "I": 0.5,
+        "tau": 20
+      }
+    },
+    "source": {
+      "title": "A single leaky neuron: demonstration notes",
+      "page": 2,
+      "kind": "background"
+    },
+    "learning": {
+      "objective": "See input and leak compete, and τ control response speed.",
+      "action": "Set input to 1 nA and watch voltage approach its subthreshold equilibrium.",
+      "observe": "Voltage rises toward −55 mV without reaching the −50 mV threshold.",
+      "mechanism": "RI=10 mV balances the membrane leak when the voltage is 10 mV above rest.",
+      "focus": [
+        "input",
+        "leak",
+        "membrane"
+      ],
+      "test_params": {
+        "I": 1,
+        "tau": 20
+      },
+      "outcome_js": "state.time >= 200 && Math.abs(state.V+55)<0.05 && state.spikes === 0"
+    }
+  },
+  {
+    "id": "threshold",
+    "title": "A threshold changes everything.",
+    "intro": [
+      "When the membrane reaches −50 mV, our model emits a spike and resets to −65 mV.",
+      "A two-millisecond refractory interval follows, then the membrane begins integrating again."
+    ],
+    "intro_links": [
+      "threshold",
+      "spike"
+    ],
+    "equation": {
+      "latex": "V\\geq -50\\,\\mathrm{mV}\\quad\\Rightarrow\\quad V\\leftarrow -65\\,\\mathrm{mV}",
+      "symbols": [
+        {
+          "symbol": "V",
+          "meaning": "The changing membrane potential.",
+          "links_to": "membrane"
+        },
+        {
+          "symbol": "-50",
+          "meaning": "Firing threshold, in mV: cross it to emit a spike.",
+          "links_to": "threshold"
+        },
+        {
+          "symbol": "-65",
+          "meaning": "Reset voltage, in mV, held during the 2 ms refractory interval.",
+          "links_to": "spike"
+        }
+      ]
+    },
+    "terms": [
+      {
+        "term": "Threshold",
+        "definition": "The voltage at which the model emits a spike: −50 mV.",
+        "links_to": "threshold"
+      },
+      {
+        "term": "Spike",
+        "definition": "A discrete output event, drawn as a sharp line in the trace.",
+        "links_to": "spike"
+      },
+      {
+        "term": "Reset",
+        "definition": "After a spike, voltage returns to −65 mV before integration resumes.",
+        "links_to": "membrane"
+      }
+    ],
+    "predict": {
+      "question": "Will a steady input of 1 nA trigger a spike?",
+      "options": [
+        "Yes, once enough time passes.",
+        "No: it settles below the firing threshold."
+      ],
+      "answer_index": 1,
+      "why": "An input of 1 nA approaches −55 mV, below the −50 mV threshold. Inputs greater than 1.5 nA can reach the threshold in this model. The spike marker at +20 mV is a drawing convention, not a biological action-potential waveform.",
+      "page": 3
+    },
+    "controls": [
+      {
+        "symbol": "I",
+        "label": "Input current",
+        "min": 0,
+        "max": 10,
+        "step": 0.1,
+        "default": 2,
+        "units": "nA"
+      },
+      {
+        "symbol": "tau",
+        "label": "Time constant τ",
+        "min": 5,
+        "max": 100,
+        "step": 1,
+        "default": 20,
+        "units": "ms"
+      }
+    ],
+    "challenge": {
+      "text": "Set input to 2 nA and observe the reset events in the voltage trace.",
+      "check_js": "state.time >= 1000 && state.spikesFirstSecond === 33"
+    },
+    "figure_caption": "A voltage trace reveals the threshold, each spike, and the reset that follows it.",
+    "scene_state": {
+      "visible": [
+        "input",
+        "membrane",
+        "leak",
+        "threshold",
+        "spike"
+      ],
+      "camera": [
+        0,
+        15,
+        6.2
+      ],
+      "params": {
+        "I": 2,
+        "tau": 20
+      }
+    },
+    "source": {
+      "title": "A single leaky neuron: demonstration notes",
+      "page": 3,
+      "kind": "background"
+    },
+    "learning": {
+      "objective": "Connect the threshold crossing to a discrete output spike.",
+      "action": "Set input to 2 nA and observe the reset events in the voltage trace.",
+      "observe": "Voltage ramps to −50 mV, then resets; spikes accumulate in the first-second count.",
+      "mechanism": "After each threshold crossing, the model resets to −65 mV and holds for 2 ms.",
+      "focus": [
+        "threshold",
+        "spike",
+        "axon"
+      ],
+      "test_params": {
+        "I": 2,
+        "tau": 20
+      },
+      "outcome_js": "state.time >= 1000 && state.spikesFirstSecond === 33"
+    }
+  },
+  {
+    "id": "rhythm",
+    "title": "More input. A faster rhythm.",
+    "intro": [
+      "Stronger input shortens the journey to threshold, so the neuron fires more often.",
+      "Our simulation produced 33 spikes at 2 nA and 63 spikes at 3 nA in the first 1 s (0–1000 ms); the tags and the plot count the same window."
+    ],
+    "intro_links": [
+      "input",
+      "rate"
+    ],
+    "equation": {
+      "latex": "f\\approx\\frac{1000}{\\tau\\ln\\!\\left(\\frac{RI}{RI-15}\\right)+2}\\;\\mathrm{Hz}",
+      "symbols": [
+        {
+          "symbol": "f",
+          "meaning": "Approximate steady firing rate. The Firing rhythm tag shows the measured count in the first 1 s.",
+          "links_to": "rate"
+        },
+        {
+          "symbol": "I",
+          "meaning": "Input in nA, above 1.5 nA for this expression; R = 10 MΩ.",
+          "links_to": "input"
+        },
+        {
+          "symbol": "\\tau",
+          "meaning": "Time constant in ms; the final 2 ms is the refractory interval.",
+          "links_to": "leak"
+        }
+      ]
+    },
+    "terms": [
+      {
+        "term": "Firing rate",
+        "definition": "Spikes counted in the first 1 s (0–1000 ms) of a run, per second.",
+        "links_to": "rate"
+      },
+      {
+        "term": "Interspike interval",
+        "definition": "Time between two spike events; shorter intervals mean a faster rhythm.",
+        "links_to": "spike"
+      },
+      {
+        "term": "Threshold",
+        "definition": "The same −50 mV boundary, reached faster under stronger input.",
+        "links_to": "threshold"
+      }
+    ],
+    "predict": {
+      "question": "Does doubling the input exactly double the firing rate?",
+      "options": [
+        "Yes, the relationship is always linear.",
+        "No, threshold and refractory time make it nonlinear."
+      ],
+      "answer_index": 1,
+      "why": "The charging time depends on a logarithm, and every spike adds a refractory interval. Our simulation gives 33 spikes at 2 nA and 63 at 3 nA in the first 1 s (0–1000 ms), matching the checked Python reference. This is numerical agreement with our reference model, not validation against a research paper or biological data. The analytic expression is approximate for the discrete model.",
+      "page": 4
+    },
+    "controls": [
+      {
+        "symbol": "I",
+        "label": "Input current",
+        "min": 1.6,
+        "max": 10,
+        "step": 0.1,
+        "default": 2,
+        "units": "nA"
+      },
+      {
+        "symbol": "tau",
+        "label": "Time constant τ",
+        "min": 5,
+        "max": 100,
+        "step": 1,
+        "default": 20,
+        "units": "ms"
+      }
+    ],
+    "challenge": {
+      "text": "Set input to 3 nA and wait for the first 1,000 ms measurement.",
+      "check_js": "state.time >= 1000 && state.spikesFirstSecond === 63"
+    },
+    "figure_caption": "A repeatable result: increase the drive, shorten the intervals, and measure the new rhythm.",
+    "scene_state": {
+      "visible": [
+        "input",
+        "membrane",
+        "leak",
+        "threshold",
+        "spike",
+        "rate"
+      ],
+      "camera": [
+        0,
+        15,
+        6.2
+      ],
+      "params": {
+        "I": 2,
+        "tau": 20
+      }
+    },
+    "source": {
+      "title": "A single leaky neuron: demonstration notes",
+      "page": 4,
+      "kind": "simulation"
+    },
+    "learning": {
+      "objective": "Compare rates using the same measurement window.",
+      "action": "Set input to 3 nA and wait for the first 1,000 ms measurement.",
+      "observe": "The first-second count is 63 spikes, compared with 33 at 2 nA.",
+      "mechanism": "A stronger input shortens the time to threshold after each reset.",
+      "focus": [
+        "rate",
+        "axon",
+        "spike"
+      ],
+      "test_params": {
+        "I": 3,
+        "tau": 20
+      },
+      "outcome_js": "state.time >= 1000 && state.spikesFirstSecond === 63"
+    }
+  }
+]

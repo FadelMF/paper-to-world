@@ -1,0 +1,425 @@
+{
+  "modality": "3d",
+  "camera": [
+    0,
+    1,
+    15
+  ],
+  "visual_needs": [
+    {
+      "need": "Locate the complete encoder-decoder data flow and inspect each transformation.",
+      "objects": [
+        "source_embed",
+        "encoder_attention",
+        "encoder_norm",
+        "encoder_ff",
+        "encoder_output",
+        "target_embed",
+        "decoder_masked",
+        "cross_attention",
+        "decoder_ff",
+        "decoder_output",
+        "probabilities",
+        "generated"
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "source_embed",
+      "label": "Source embeddings",
+      "role": "structure",
+      "primitive": "box",
+      "position": [
+        -1,
+        -2,
+        0
+      ],
+      "size": [
+        2,
+        2,
+        1
+      ],
+      "parent": null,
+      "description": "Source embeddings; operation from the paper, drawn schematically.",
+      "basis": "paper",
+      "evidence": "architecture",
+      "rationale": "",
+      "bindings": [
+        {
+          "state": "phase",
+          "property": "active computation",
+          "map": "The forward-pass cursor follows actual cached intermediate values."
+        }
+      ],
+      "explode": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "encoder_attention",
+      "label": "Encoder self-attention",
+      "role": "structure",
+      "primitive": "box",
+      "position": [
+        -1,
+        -1,
+        0
+      ],
+      "size": [
+        2,
+        2,
+        1
+      ],
+      "parent": null,
+      "description": "Encoder self-attention; operation from the paper, drawn schematically.",
+      "basis": "paper",
+      "evidence": "architecture",
+      "rationale": "",
+      "bindings": [
+        {
+          "state": "phase",
+          "property": "active computation",
+          "map": "The forward-pass cursor follows actual cached intermediate values."
+        }
+      ],
+      "explode": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "encoder_norm",
+      "label": "Add & norm",
+      "role": "structure",
+      "primitive": "box",
+      "position": [
+        -1,
+        0,
+        0
+      ],
+      "size": [
+        2,
+        2,
+        1
+      ],
+      "parent": null,
+      "description": "Add & norm; operation from the paper, drawn schematically.",
+      "basis": "paper",
+      "evidence": "architecture",
+      "rationale": "",
+      "bindings": [
+        {
+          "state": "phase",
+          "property": "active computation",
+          "map": "The forward-pass cursor follows actual cached intermediate values."
+        }
+      ],
+      "explode": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "encoder_ff",
+      "label": "Encoder feed-forward",
+      "role": "structure",
+      "primitive": "box",
+      "position": [
+        -1,
+        1,
+        0
+      ],
+      "size": [
+        2,
+        2,
+        1
+      ],
+      "parent": null,
+      "description": "Encoder feed-forward; operation from the paper, drawn schematically.",
+      "basis": "paper",
+      "evidence": "architecture",
+      "rationale": "",
+      "bindings": [
+        {
+          "state": "phase",
+          "property": "active computation",
+          "map": "The forward-pass cursor follows actual cached intermediate values."
+        }
+      ],
+      "explode": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "encoder_output",
+      "label": "Encoder memory",
+      "role": "structure",
+      "primitive": "box",
+      "position": [
+        -1,
+        2,
+        0
+      ],
+      "size": [
+        2,
+        2,
+        1
+      ],
+      "parent": null,
+      "description": "Encoder memory; operation from the paper, drawn schematically.",
+      "basis": "paper",
+      "evidence": "architecture",
+      "rationale": "",
+      "bindings": [
+        {
+          "state": "phase",
+          "property": "active computation",
+          "map": "The forward-pass cursor follows actual cached intermediate values."
+        }
+      ],
+      "explode": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "target_embed",
+      "label": "Shifted output embeddings",
+      "role": "structure",
+      "primitive": "box",
+      "position": [
+        1,
+        -2,
+        0
+      ],
+      "size": [
+        2,
+        2,
+        1
+      ],
+      "parent": null,
+      "description": "Shifted output embeddings; operation from the paper, drawn schematically.",
+      "basis": "paper",
+      "evidence": "architecture",
+      "rationale": "",
+      "bindings": [
+        {
+          "state": "phase",
+          "property": "active computation",
+          "map": "The forward-pass cursor follows actual cached intermediate values."
+        }
+      ],
+      "explode": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "decoder_masked",
+      "label": "Masked self-attention",
+      "role": "structure",
+      "primitive": "box",
+      "position": [
+        1,
+        -1,
+        0
+      ],
+      "size": [
+        2,
+        2,
+        1
+      ],
+      "parent": null,
+      "description": "Masked self-attention; operation from the paper, drawn schematically.",
+      "basis": "paper",
+      "evidence": "architecture",
+      "rationale": "",
+      "bindings": [
+        {
+          "state": "phase",
+          "property": "active computation",
+          "map": "The forward-pass cursor follows actual cached intermediate values."
+        }
+      ],
+      "explode": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "cross_attention",
+      "label": "Cross-attention",
+      "role": "structure",
+      "primitive": "box",
+      "position": [
+        1,
+        0,
+        0
+      ],
+      "size": [
+        2,
+        2,
+        1
+      ],
+      "parent": null,
+      "description": "Cross-attention; operation from the paper, drawn schematically.",
+      "basis": "paper",
+      "evidence": "architecture",
+      "rationale": "",
+      "bindings": [
+        {
+          "state": "phase",
+          "property": "active computation",
+          "map": "The forward-pass cursor follows actual cached intermediate values."
+        }
+      ],
+      "explode": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "decoder_ff",
+      "label": "Decoder feed-forward",
+      "role": "structure",
+      "primitive": "box",
+      "position": [
+        1,
+        1,
+        0
+      ],
+      "size": [
+        2,
+        2,
+        1
+      ],
+      "parent": null,
+      "description": "Decoder feed-forward; operation from the paper, drawn schematically.",
+      "basis": "paper",
+      "evidence": "architecture",
+      "rationale": "",
+      "bindings": [
+        {
+          "state": "phase",
+          "property": "active computation",
+          "map": "The forward-pass cursor follows actual cached intermediate values."
+        }
+      ],
+      "explode": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "decoder_output",
+      "label": "Decoder add & norm",
+      "role": "structure",
+      "primitive": "box",
+      "position": [
+        1,
+        2,
+        0
+      ],
+      "size": [
+        2,
+        2,
+        1
+      ],
+      "parent": null,
+      "description": "Decoder add & norm; operation from the paper, drawn schematically.",
+      "basis": "paper",
+      "evidence": "architecture",
+      "rationale": "",
+      "bindings": [
+        {
+          "state": "phase",
+          "property": "active computation",
+          "map": "The forward-pass cursor follows actual cached intermediate values."
+        }
+      ],
+      "explode": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "probabilities",
+      "label": "Linear & softmax",
+      "role": "structure",
+      "primitive": "box",
+      "position": [
+        1,
+        3,
+        0
+      ],
+      "size": [
+        2,
+        2,
+        1
+      ],
+      "parent": null,
+      "description": "Linear & softmax; operation from the paper, drawn schematically.",
+      "basis": "paper",
+      "evidence": "architecture",
+      "rationale": "",
+      "bindings": [
+        {
+          "state": "phase",
+          "property": "active computation",
+          "map": "The forward-pass cursor follows actual cached intermediate values."
+        }
+      ],
+      "explode": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "generated",
+      "label": "Generated tokens",
+      "role": "structure",
+      "primitive": "box",
+      "position": [
+        0,
+        -3,
+        0
+      ],
+      "size": [
+        2,
+        2,
+        1
+      ],
+      "parent": null,
+      "description": "Generated tokens; operation from the paper, drawn schematically.",
+      "basis": "paper",
+      "evidence": "architecture",
+      "rationale": "",
+      "bindings": [
+        {
+          "state": "phase",
+          "property": "active computation",
+          "map": "The forward-pass cursor follows actual cached intermediate values."
+        }
+      ],
+      "explode": [
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

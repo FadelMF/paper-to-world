@@ -1,0 +1,22 @@
+.neuron-explanation{flex:none;margin-top:8px;padding:12px 14px;border:1px solid var(--line);border-radius:9px;background:var(--paper);color:var(--ink);font:12px/1.5 Inter,sans-serif}
+.neuron-summary-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.neuron-summary-heading h3{margin:0;font-size:13px;line-height:1.5;font-weight:600}
+.neuron-condition{flex:none;color:var(--accent-text);font-size:11px}
+.neuron-action{margin:3px 0 12px;font-size:11px;color:var(--muted)}
+.neuron-metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:0}
+.neuron-metrics>div+div{border-left:1px solid var(--line);padding-left:16px}
+.neuron-metrics dt{font-size:10px;color:var(--muted);line-height:1.4;margin-bottom:4px}
+.neuron-metrics dd{margin:0;display:flex;align-items:baseline;gap:5px;font-size:18px;font-weight:550;line-height:1.3;font-variant-numeric:tabular-nums}
+.neuron-metrics dd small{font-size:10px;font-weight:400;color:var(--muted)}
+.neuron-metrics p{margin:2px 0 0;font-size:9px;line-height:1.4;color:var(--muted);font-variant-numeric:tabular-nums}
+.neuron-calculation{margin-top:12px;border-top:1px solid var(--line);padding-top:8px}
+.neuron-calculation summary{width:fit-content;cursor:pointer;color:var(--accent-text);font-size:11px;line-height:1.6}
+.neuron-calculation summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.neuron-calculation>p{font-size:11px;margin:10px 0;color:var(--muted)}
+.neuron-calculation dl{display:grid;grid-template-columns:1fr 1fr;gap:7px 20px;margin:0}
+.neuron-calculation dl>div{display:flex;justify-content:space-between;gap:10px;font-size:10px}
+.neuron-calculation dt{color:var(--muted)}.neuron-calculation dd{margin:0;white-space:nowrap;font-variant-numeric:tabular-nums}
+.neuron-calculation .neuron-model-note{margin:10px 0 0;font-size:10px}
+@media(max-width:760px){body.neuron-example{height:auto;overflow:auto}body.neuron-example #workspace{display:flex;flex-direction:column;overflow:visible;padding-bottom:145px}body.neuron-example #visual{height:800px;flex:none;overflow:auto}body.neuron-example #reading{overflow:visible;flex:none}.neuron-explanation{padding:10px 12px}.neuron-metrics{gap:10px}.neuron-metrics>div+div{padding-left:10px}.neuron-metrics dt{font-size:9px}.neuron-metrics dd{font-size:17px}.neuron-calculation dl{grid-template-columns:1fr}}
+
+.neuron-metrics .neuron-spike-value{display:block}

@@ -1,0 +1,14 @@
+{
+  "subject": "A schematic neuron in 3D: branching dendrites, the soma, a trigger zone and a myelinated axon ending in terminals.",
+  "figures": [],
+  "entities": [
+    {"id": "input", "name": "Dendrites", "kind": "structure", "appearance": "A branching input tree on one side of the cell body.", "dimensions": null, "relations": ["flows into the soma"], "page": 2, "quote": "Input collects in the branching dendrites and flows into the cell body, the soma."},
+    {"id": "membrane", "name": "Soma", "kind": "structure", "appearance": "The cell body; one membrane voltage stands for the whole neuron.", "dimensions": null, "relations": ["between dendrites and axon"], "page": 2, "quote": "Soma: The cell body. Its single membrane voltage stands for the whole neuron in this model."},
+    {"id": "myelin", "name": "Myelin", "kind": "structure", "appearance": "Six insulating sheaths around the axon.", "dimensions": "six sheaths", "relations": ["wraps the axon"], "page": 1, "quote": "six myelin sheaths around the axon"},
+    {"id": "threshold", "name": "Trigger zone", "kind": "structure", "appearance": "The axon hillock where the axon begins.", "dimensions": "fires at -50 mV", "relations": ["where the axon leaves the soma"], "page": 3, "quote": "Trigger zone: The axon hillock, drawn where the axon begins."},
+    {"id": "spike", "name": "Spike pulse", "kind": "signal", "appearance": "A pulse that leaves the trigger zone and travels along the axon.", "dimensions": "60 ms illustrative transit", "relations": ["travels along the axon"], "page": 3, "quote": "a pulse leaves the trigger zone and travels along the axon"},
+    {"id": "axon", "name": "Axon", "kind": "structure", "appearance": "The output path away from the cell body.", "dimensions": null, "relations": ["leaves the soma at the trigger zone"], "page": 1, "quote": "Axon: The output path that carries the neuron’s signal away from its cell body."},
+    {"id": "rate", "name": "Axon terminals", "kind": "structure", "appearance": "The end of the axon where pulses arrive.", "dimensions": null, "relations": ["at the far end of the axon"], "page": 4, "quote": "Axon terminals: Where pulses arrive."},
+    {"id": "leak", "name": "Leak", "kind": "process", "appearance": "A pull of the voltage back toward rest.", "dimensions": null, "relations": ["acts on the soma membrane"], "page": 2, "quote": "Leak: The tendency for the membrane voltage to move back toward rest."}
+  ]
+}

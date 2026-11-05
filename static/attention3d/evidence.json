@@ -1,0 +1,81 @@
+{
+  "subject": "The full Transformer encoder-decoder architecture",
+  "figures": [
+    {
+      "id": "fig1",
+      "page": 3,
+      "caption": "Figure 1: The Transformer - model architecture. The Transformer follows this overall architecture using stacked self-attention and point-wise, fully connected layers for both the encoder and decoder, shown in the left and right halves of Figure 1, respectively. 3.1 Encoder and Decoder Stacks Encoder: The encoder is composed of a stack of N = 6 identical layers. Each layer has two sub-layers. The f",
+      "box": [
+        0.3062,
+        0.0759,
+        0.6938,
+        0.513
+      ],
+      "image": "figure-1.png",
+      "reading": null
+    },
+    {
+      "id": "fig2",
+      "page": 4,
+      "caption": "Figure 2: (left) Scaled Dot-Product Attention. (right) Multi-Head Attention consists of several attention layers running in parallel. of the values, where the weight assigned to each value is computed by a compatibility function of the query with the corresponding key. 3.2.1 Scaled Dot-Product Attention We call our particular attention \"Scaled Dot-Product Attention\" (Figure 2). The input consists ",
+      "box": [
+        0.2709,
+        0.0894,
+        0.7781,
+        0.3525
+      ],
+      "image": "figure-2.png",
+      "reading": null
+    },
+    {
+      "id": "fig3",
+      "page": 13,
+      "caption": "Figure 3: An example of the attention mechanism following long-distance dependencies in the encoder self-attention in layer 5 of 6. Many of the attention heads attend to a distant dependency of the verb ‘making’, completing the phrase ‘making...more difficult’. Attentions here shown only for the word ‘making’. Different colors represent different heads. Best viewed in color.",
+      "box": [
+        0.1633,
+        0.0678,
+        0.8397,
+        0.3964
+      ],
+      "image": "figure-3.png",
+      "reading": null
+    },
+    {
+      "id": "fig4",
+      "page": 14,
+      "caption": "Figure 4: Two attention heads, also in layer 5 of 6, apparently involved in anaphora resolution. Top: Full attentions for head 5. Bottom: Isolated attentions from just the word ‘its’ for attention heads 5 and 6. Note that the attentions are very sharp for this word.",
+      "box": [
+        0.1636,
+        0.1132,
+        0.8381,
+        0.7916
+      ],
+      "image": "figure-4.png",
+      "reading": null
+    },
+    {
+      "id": "fig5",
+      "page": 15,
+      "caption": "Figure 5: Many of the attention heads exhibit behaviour that seems related to the structure of the sentence. We give two such examples above, from two different heads from the encoder self-attention at layer 5 of 6. The heads clearly learned to perform different tasks.",
+      "box": [
+        0.1616,
+        0.1312,
+        0.8309,
+        0.7765
+      ],
+      "image": "figure-5.png",
+      "reading": null
+    }
+  ],
+  "entities": [
+    {
+      "id": "architecture",
+      "name": "Encoder and decoder stacks",
+      "page": 3,
+      "figure": "fig1",
+      "quote": "The Transformer follows this overall architecture using stacked self-attention",
+      "verified": true,
+      "verified_by": "text"
+    }
+  ]
+}

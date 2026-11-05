@@ -1,0 +1,81 @@
+{
+  "modality": "2d",
+  "rationale": "Voltage and firing rhythm change over time, so a flat view makes their relationship clear.",
+  "core_model": "the balance of input, membrane leak, and firing threshold",
+  "controls": [
+    {
+      "symbol": "I",
+      "label": "Input current",
+      "min": 0,
+      "max": 10,
+      "step": 0.1,
+      "default": 0
+    },
+    {
+      "symbol": "tau",
+      "label": "Membrane time constant",
+      "min": 5,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    }
+  ],
+  "views": [
+    {
+      "type": "2d",
+      "shows": "A neuron with its changing voltage and spike events"
+    }
+  ],
+  "validation_targets": [
+    {
+      "id": "v0",
+      "metric": "spikes_0nA",
+      "expected": 0
+    },
+    {
+      "id": "v1",
+      "metric": "spikes_1nA",
+      "expected": 0
+    },
+    {
+      "id": "v2",
+      "metric": "spikes_2nA",
+      "expected": 33
+    },
+    {
+      "id": "v3",
+      "metric": "spikes_3nA",
+      "expected": 63
+    }
+  ],
+  "coverage": [
+    {
+      "topic": "rest",
+      "mode": "simulated",
+      "lessons": [
+        "rest"
+      ]
+    },
+    {
+      "topic": "integrate",
+      "mode": "simulated",
+      "lessons": [
+        "integrate"
+      ]
+    },
+    {
+      "topic": "threshold",
+      "mode": "simulated",
+      "lessons": [
+        "threshold"
+      ]
+    },
+    {
+      "topic": "rhythm",
+      "mode": "simulated",
+      "lessons": [
+        "rhythm"
+      ]
+    }
+  ]
+}

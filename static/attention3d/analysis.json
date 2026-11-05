@@ -1,0 +1,120 @@
+{
+  "title": "Attention Is All You Need",
+  "authors": "Ashish Vaswani et al.",
+  "one_line_summary": "An encoder-decoder architecture using attention, feed-forward layers and positional representations.",
+  "learning_topics": [
+    {
+      "id": "architecture",
+      "title": "Encoder/decoder architecture",
+      "page": 3,
+      "required": true
+    },
+    {
+      "id": "positions",
+      "title": "Embeddings and positional encoding",
+      "page": 5,
+      "required": true
+    },
+    {
+      "id": "attention",
+      "title": "Scaled dot-product and multi-head attention",
+      "page": 4,
+      "required": true
+    },
+    {
+      "id": "residual",
+      "title": "Residual connections, layer norm and feed-forward",
+      "page": 3,
+      "required": true
+    },
+    {
+      "id": "decoder",
+      "title": "Causal masking and encoder-decoder attention",
+      "page": 3,
+      "required": true
+    },
+    {
+      "id": "generation",
+      "title": "Autoregressive output and softmax",
+      "page": 3,
+      "required": true
+    },
+    {
+      "id": "training",
+      "title": "Optimization, regularization and schedule",
+      "page": 7,
+      "required": true
+    },
+    {
+      "id": "results",
+      "title": "Translation benchmarks, ablations and parsing",
+      "page": 8,
+      "required": true
+    },
+    {
+      "id": "complexity",
+      "title": "Motivation, computational cost and limitations",
+      "page": 6,
+      "required": true
+    }
+  ],
+  "concepts": [
+    {
+      "name": "Encoder/decoder architecture",
+      "page": 3
+    },
+    {
+      "name": "Embeddings and positional encoding",
+      "page": 5
+    },
+    {
+      "name": "Scaled dot-product and multi-head attention",
+      "page": 4
+    },
+    {
+      "name": "Residual connections, layer norm and feed-forward",
+      "page": 3
+    },
+    {
+      "name": "Causal masking and encoder-decoder attention",
+      "page": 3
+    },
+    {
+      "name": "Autoregressive output and softmax",
+      "page": 3
+    },
+    {
+      "name": "Optimization, regularization and schedule",
+      "page": 7
+    },
+    {
+      "name": "Translation benchmarks, ablations and parsing",
+      "page": 8
+    },
+    {
+      "name": "Motivation, computational cost and limitations",
+      "page": 6
+    }
+  ],
+  "equations": [
+    {
+      "id": "eq1",
+      "latex": "\\mathrm{Attention}(Q,K,V)=\\mathrm{softmax}(QK^T/\\sqrt{d_k})V",
+      "meaning": "Scaled dot-product attention",
+      "page": 4
+    },
+    {
+      "id": "eq2",
+      "latex": "FFN(x)=\\max(0,xW_1+b_1)W_2+b_2",
+      "meaning": "Position-wise feed-forward network",
+      "page": 5
+    }
+  ],
+  "claims": [
+    {
+      "id": "translation",
+      "statement": "The big model reports 28.4 BLEU for English-to-German.",
+      "page": 8
+    }
+  ]
+}
